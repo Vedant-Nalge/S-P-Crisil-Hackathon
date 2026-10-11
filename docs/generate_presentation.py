@@ -1,149 +1,275 @@
 import os
+import shutil
 from reportlab.lib.pagesizes import letter, landscape
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 
 DOCS_DIR = os.path.dirname(os.path.abspath(__file__))
+DOWNLOADS_DIR = r"C:\Users\vedan\Downloads"
 PDF_PATH = os.path.join(DOCS_DIR, "presentation.pdf")
 
 doc = SimpleDocTemplate(
     PDF_PATH,
     pagesize=landscape(letter),
-    rightMargin=40, leftMargin=40,
-    topMargin=40, bottomMargin=40
+    rightMargin=30, leftMargin=30,
+    topMargin=25, bottomMargin=25
 )
 
 styles = getSampleStyleSheet()
 
-# Custom Presentation Styles
-dark_bg = colors.HexColor("#07080c")
+# Color Palette
 gold_color = colors.HexColor("#f59e0b")
-slate_light = colors.HexColor("#cbd5e1")
+slate_light = colors.HexColor("#e2e8f0")
 slate_dim = colors.HexColor("#94a3b8")
+blue_accent = colors.HexColor("#38bdf8")
+red_accent = colors.HexColor("#ef4444")
+green_accent = colors.HexColor("#10b981")
 
 title_style = ParagraphStyle(
     'SlideTitle',
     fontName='Helvetica-Bold',
-    fontSize=26,
-    leading=32,
+    fontSize=22,
+    leading=26,
     textColor=gold_color,
-    spaceAfter=15
+    spaceAfter=6
 )
 
 subtitle_style = ParagraphStyle(
     'SlideSubtitle',
     fontName='Helvetica',
-    fontSize=14,
-    leading=18,
+    fontSize=11,
+    leading=15,
     textColor=colors.white,
-    spaceAfter=20
+    spaceAfter=10
 )
 
 body_style = ParagraphStyle(
     'SlideBody',
     fontName='Helvetica',
-    fontSize=12,
-    leading=18,
+    fontSize=9.5,
+    leading=14,
     textColor=slate_light,
-    spaceAfter=10
+    spaceAfter=6
 )
 
 bullet_style = ParagraphStyle(
     'SlideBullet',
     fontName='Helvetica',
-    fontSize=11,
-    leading=17,
+    fontSize=9,
+    leading=13,
     textColor=slate_light,
-    spaceAfter=8,
-    leftIndent=15
+    spaceAfter=5,
+    leftIndent=10
 )
 
 header_style = ParagraphStyle(
     'SlideSectionHeader',
     fontName='Helvetica-Bold',
-    fontSize=14,
-    leading=18,
-    textColor=colors.HexColor("#38bdf8"),
-    spaceAfter=10
+    fontSize=11.5,
+    leading=15,
+    textColor=blue_accent,
+    spaceAfter=6
 )
+
+def add_slide_header(title, section_tag="FINANCIAL RISK ENGINE - TRUMP-RUSSIA CRISIS SIMULATION"):
+    story.append(Paragraph(f"<font color='#f59e0b' size='8'><b>{section_tag}</b></font>", body_style))
+    story.append(Paragraph(title, title_style))
+    story.append(Spacer(1, 6))
 
 story = []
 
-def add_slide_header(title, section_tag="S&P GLOBAL × CRISIL HACKATHON 2026"):
-    story.append(Paragraph(f"<font color='#f59e0b' size='9'><b>{section_tag}</b></font>", body_style))
-    story.append(Paragraph(title, title_style))
-    story.append(Spacer(1, 10))
-
 # --- SLIDE 1: TITLE SLIDE ---
-story.append(Spacer(1, 40))
-story.append(Paragraph("S&P Global & CRISIL Campus Hackathon 2026", ParagraphStyle('TopTag', fontName='Helvetica-Bold', fontSize=14, textColor=gold_color, spaceAfter=15)))
+story.append(Spacer(1, 15))
+story.append(Paragraph("FINANCIAL RISK ENGINE & QUANTITATIVE INTELLIGENCE PLATFORM", ParagraphStyle('TopTag', fontName='Helvetica-Bold', fontSize=12, textColor=gold_color, spaceAfter=10)))
 story.append(Paragraph("Unified AI/NLP Financial Risk Engine & Dual Downstream Intelligence Platform", title_style))
-story.append(Paragraph("A Multi-Source Unstructured Text Pipeline Powering Tactical Index Rebalancing and Wholesale Banking Stress Testing", subtitle_style))
-story.append(Spacer(1, 30))
+story.append(Paragraph("Live Crisis Simulation: Trump-Russia Diesel Deal Deepens Ukraine Rift (Severity 9.6/10)", subtitle_style))
+story.append(Spacer(1, 15))
+
 meta_data = [
     [Paragraph("<b>Candidate Name:</b> Vedant Dilip Nalge", body_style), Paragraph("<b>Target Track:</b> AI/NLP Risk Engine", body_style)],
-    [Paragraph("<b>College / Campus:</b> IIT Madras (me22b162@smail.iitm.ac.in)", body_style), Paragraph("<b>Downstream Modules:</b> Both Module A & Module B", body_style)]
+    [Paragraph("<b>Institution / Campus:</b> Indian Institute of Technology Madras", body_style), Paragraph("<b>Email:</b> me22b162@smail.iitm.ac.in", body_style)],
+    [Paragraph("<b>Architecture:</b> FastAPI + Loughran-McDonald/FinBERT + SciPy", body_style), Paragraph("<b>Downstream Modules:</b> Both Module A & Module B", body_style)]
 ]
-t = Table(meta_data, colWidths=[350, 350])
-t.setStyle(TableStyle([('TEXTCOLOR', (0,0), (-1,-1), slate_light)]))
+t = Table(meta_data, colWidths=[370, 370])
+t.setStyle(TableStyle([
+    ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#0f172a")),
+    ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#1e293b")),
+    ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#1e293b")),
+    ('TOPPADDING', (0,0), (-1,-1), 6),
+    ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+]))
 story.append(t)
+story.append(Spacer(1, 15))
+
+hero_img = os.path.join(DOCS_DIR, "trump_russia_hero.png")
+if os.path.exists(hero_img):
+    story.append(Image(hero_img, width=680, height=220))
+
 story.append(PageBreak())
 
 # --- SLIDE 2: PROBLEM & APPROACH ---
-add_slide_header("Business Problem & Solution Approach")
-story.append(Paragraph("The Challenge:", header_style))
-story.append(Paragraph("• Traditional financial risk systems depend on lagged quarterly disclosures and delayed rating actions, leaving asset managers vulnerable to sudden sentiment shocks and qualitative black swan events.", bullet_style))
-story.append(Paragraph("• Financial analysts are overwhelmed by millions of unstructured data points daily across institutional news wires and high-velocity social sentiment.", bullet_style))
+add_slide_header("Executive Summary & Core Challenge: Geopolitical Disruption")
+col1 = [
+    Paragraph("The Market Friction & Problem:", header_style),
+    Paragraph("• <b>Latency Vulnerability:</b> Traditional credit risk and rating revisions take weeks to register qualitative geopolitical rifts.", bullet_style),
+    Paragraph("• <b>Black Swan Shock:</b> The simulated Bloomberg wire: <i>'Trump\\'s Russia Diesel Deal Deepens Ukraine Rift'</i> causes immediate risk-off across tech/defense.", bullet_style),
+    Paragraph("• <b>Dual Downstream Need:</b> Institutional desks need simultaneous equity rebalancing and wholesale banking capital preservation.", bullet_style),
+    Spacer(1, 8),
+    Paragraph("Our Algorithmic Architecture:", header_style),
+    Paragraph("• <b>Domain NLP Pipeline:</b> Sub-25ms FinBERT/Loughran-McDonald hybrid scorer generates sentiment (-0.95) and severity (9.6/10).", bullet_style),
+    Paragraph("• <b>Module A Index Tactical:</b> Bounded convex rebalance protects capital with 18% position caps.", bullet_style),
+    Paragraph("• <b>Module B Wholesale Stress:</b> Basel III Expected Loss, duration convexity, and DV01 quantify balance sheet drawdowns.", bullet_style)
+]
+
+feed_img = os.path.join(DOCS_DIR, "trump_russia_news_feed.png")
+col2 = []
+if os.path.exists(feed_img):
+    col2.append(Paragraph("<b>Live Multi-Source Ingestion Telemetry:</b>", header_style))
+    col2.append(Image(feed_img, width=360, height=260))
+
+summary_table = Table([[col1, col2]], colWidths=[370, 370])
+summary_table.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'TOP')]))
+story.append(summary_table)
+story.append(PageBreak())
+
+# --- SLIDE 3: SYSTEM ARCHITECTURE ---
+add_slide_header("System Design & Architecture: Multi-Source Real-Time Pipeline")
+arch_data = [
+    [Paragraph("<b>Component Layer</b>", header_style), Paragraph("<b>Implementation & Technologies</b>", header_style), Paragraph("<b>Trump-Russia Case Telemetry</b>", header_style)],
+    [Paragraph("1. Data Ingestion", body_style), Paragraph("Yahoo Finance RSS, StockTwits streams, Bloomberg wire simulator", body_style), Paragraph("Extracted headline + ticker mentions AAPL, NVDA, PLTR, TSLA", body_style)],
+    [Paragraph("2. AI/NLP Classifier", body_style), Paragraph("Dual-dictionary FinBERT & Loughran-McDonald keyword density", body_style), Paragraph("Geopolitical class (80% conf), -0.95 Sentiment (Deep Bearish)", body_style)],
+    [Paragraph("3. Severity Gate", body_style), Paragraph("Rule-based impact weighting (Score >= 7.0 auto-trips Module B)", body_style), Paragraph("Impact Score: <b>9.6 / 10.0 (GATE TRIPPED)</b>", body_style)],
+    [Paragraph("4. Module A Rebalance", body_style), Paragraph("Convex bounded optimizer with 18% upper cap & turnover penalty", body_style), Paragraph("Underweights TSLA (1.14%), AMZN (1.19%); +5 bps net alpha", body_style)],
+    [Paragraph("5. Module B Stress Test", body_style), Paragraph("Basel III Expected Loss + Duration/Convexity + DV01 sensitivity", body_style), Paragraph("Yield shock +104 bps, Spread +351 bps, PD 2.52x, -$206.4M loss", body_style)],
+    [Paragraph("6. Persistence & UI", body_style), Paragraph("FastAPI, SQLite WAL mode, Chart.js glassmorphic dashboard", body_style), Paragraph("Sub-25ms response time; zero external API dependencies", body_style)]
+]
+arch_table = Table(arch_data, colWidths=[150, 310, 280])
+arch_table.setStyle(TableStyle([
+    ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#0f172a")),
+    ('BACKGROUND', (0,1), (-1,-1), colors.HexColor("#020617")),
+    ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#1e293b")),
+    ('TOPPADDING', (0,0), (-1,-1), 5),
+    ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+]))
+story.append(arch_table)
+story.append(PageBreak())
+
+# --- SLIDE 4: TELEMETRY & SEVERITY GATE ---
+add_slide_header("AI/NLP Telemetry & Automated Severity Gate Execution")
+telem_col1 = [
+    Paragraph("Simulated Shock Details:", header_style),
+    Paragraph("• <b>Headline:</b> <i>'Trump\\'s Russia Diesel Deal Deepens Ukraine Rift'</i>", body_style),
+    Paragraph("• <b>Event Classification:</b> <b>Geopolitical</b> (80% confidence)", body_style),
+    Paragraph("• <b>Sentiment Polarization:</b> <b>-0.95</b> (Extreme Risk-Off / Deep Bearish)", body_style),
+    Paragraph("• <b>Severity Impact Score:</b> <font color='#ef4444'><b>9.6 / 10.0 (Systemic Crisis)</b></font>", body_style),
+    Spacer(1, 6),
+    Paragraph("Automated Pipeline Tripwire:", header_style),
+    Paragraph("• The platform enforces an automatic threshold gate (Impact >= 7.0) for systemic classes (Geopolitical, Macro, Credit, Cyber).", bullet_style),
+    Paragraph("• Real-time signal toast immediately dispatches shock parameters (Δy = +104 bps, Δs = +351 bps, PD = 2.52x) directly to downstream wholesale banking calculators.", bullet_style)
+]
+
+telem_img = os.path.join(DOCS_DIR, "trump_russia_telemetry.png")
+telem_col2 = []
+if os.path.exists(telem_img):
+    telem_col2.append(Image(telem_img, width=380, height=270))
+
+telem_table = Table([[telem_col1, telem_col2]], colWidths=[350, 390])
+telem_table.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'TOP')]))
+story.append(telem_table)
+story.append(PageBreak())
+
+# --- SLIDE 5: MODULE A RESULTS ---
+add_slide_header("Downstream Module A: Real-Time Tactical Index Rebalancing")
+mod_a_col1 = [
+    Paragraph("Tactical Rebalance Allocation Results:", header_style),
+    Paragraph("• <b>Defensive Caps (18.87% ceiling):</b> MSFT, GOOGL, JPM maxed at protective ceilings.", bullet_style),
+    Paragraph("• <b>Vulnerable De-allocations:</b> TSLA slashed to <b>1.14%</b>, AMZN reduced to <b>1.19%</b>.", bullet_style),
+    Paragraph("• <b>Strategy Alpha:</b> Achieved <b>+5.00 bps alpha</b> during extreme turbulence.", bullet_style),
+    Paragraph("• <b>Controlled Turnover:</b> Kept turnover to <b>9.49%</b> to prevent transaction cost slippage.", bullet_style),
+    Paragraph("• <b>Sector Distribution:</b> Technology 51.5%, Energy 11.8%, Financials 18.9%, Healthcare 17.8%.", bullet_style)
+]
+
+mod_a_img = os.path.join(DOCS_DIR, "trump_russia_module_a.png")
+mod_a_col2 = []
+if os.path.exists(mod_a_img):
+    mod_a_col2.append(Image(mod_a_img, width=420, height=270))
+
+mod_a_table = Table([[mod_a_col1, mod_a_col2]], colWidths=[310, 430])
+mod_a_table.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'TOP')]))
+story.append(mod_a_table)
+story.append(PageBreak())
+
+# --- SLIDE 6: MODULE B RESULTS ---
+add_slide_header("Downstream Module B: Wholesale Banking Stress Testing ($1.0B Book)")
+mod_b_col1 = [
+    Paragraph("Wholesale Portfolio Stress Simulation:", header_style),
+    Paragraph("• <b>Baseline Valuation:</b> $1,000.0M ($1.0 Billion wholesale book).", bullet_style),
+    Paragraph("• <b>Simulated Yield Shock:</b> Δy = <b>+104 bps</b> | Spread Shock: Δs = <b>+351 bps</b>.", bullet_style),
+    Paragraph("• <b>Default Multiplier:</b> Corporate PD jumped <b>2.52x</b>.", bullet_style),
+    Paragraph("• <b>Total Stressed Capital Loss:</b> <font color='#ef4444'><b>-$206.4M (-20.64%)</b></font>", bullet_style),
+    Paragraph("• <b>Post-Stress Valuation:</b> <font color='#10b981'><b>$793.6M (79.36% Capital Preserved)</b></font>", bullet_style),
+    Paragraph("• <b>Sub-Portfolio Impact Breakdown:</b> Commercial Loans -$95.2M (Basel III EL), Bond Portfolio -$78.4M (Duration/Convexity), IRS Swaps -$32.8M (DV01).", bullet_style)
+]
+
+mod_b_img = os.path.join(DOCS_DIR, "trump_russia_module_b.png")
+mod_b_col2 = []
+if os.path.exists(mod_b_img):
+    mod_b_col2.append(Image(mod_b_img, width=420, height=270))
+
+mod_b_table = Table([[mod_b_col1, mod_b_col2]], colWidths=[310, 430])
+mod_b_table.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'TOP')]))
+story.append(mod_b_table)
+story.append(PageBreak())
+
+# --- SLIDE 7: BUSINESS IMPACT & ROADMAP ---
+add_slide_header("Strategic Institutional Impact & Production Roadmap")
+story.append(Paragraph("Enterprise Value Proposition:", header_style))
+impact_data = [
+    [Paragraph("<b>Institutional Persona</b>", header_style), Paragraph("<b>Pre-Engine State (Manual/Lagged)</b>", header_style), Paragraph("<b>With Financial Risk Engine</b>", header_style)],
+    [Paragraph("Chief Risk Officer (CRO)", body_style), Paragraph("Quarterly stress reports, 2-3 week turnaround on black swan events", body_style), Paragraph("Instantaneous sub-second balance sheet capital re-appraisal (Basel III)", body_style)],
+    [Paragraph("Quantitative Portfolio Manager", body_style), Paragraph("Emotional panic selling or delayed rebalancing during shock news", body_style), Paragraph("Algorithmic bounded convex reallocation generating +5 bps alpha", body_style)],
+    [Paragraph("Treasury & Balance Sheet Desk", body_style), Paragraph("Opaque duration and credit spread mismatch under geopolitical shocks", body_style), Paragraph("Real-time DV01 and spread sensitivity across multi-asset books", body_style)]
+]
+impact_table = Table(impact_data, colWidths=[170, 280, 290])
+impact_table.setStyle(TableStyle([
+    ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#0f172a")),
+    ('BACKGROUND', (0,1), (-1,-1), colors.HexColor("#020617")),
+    ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#1e293b")),
+    ('TOPPADDING', (0,0), (-1,-1), 5),
+    ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+]))
+story.append(impact_table)
 story.append(Spacer(1, 10))
-story.append(Paragraph("Our Solution Approach:", header_style))
-story.append(Paragraph("• <b>Unified AI/NLP Engine:</b> Ingests live news and social telemetry, producing continuous Sentiment (-1.0 to +1.0), Event Classification, and Severity Impact (1 to 10).", bullet_style))
-story.append(Paragraph("• <b>Dual Downstream Actionability:</b> Simultaneously drives real-time stock index reweighting (Module A) and wholesale balance sheet stress testing (Module B).", bullet_style))
-story.append(PageBreak())
 
-# --- SLIDE 3: SYSTEM DESIGN & DATA FLOW ---
-add_slide_header("System Design & Architecture")
-story.append(Paragraph("End-to-End Pipeline Overview:", header_style))
-story.append(Paragraph("1. <b>Multi-Source Ingestion:</b> Yahoo Finance RSS / yfinance API, StockTwits public stream, and deterministic crisis replayer.", bullet_style))
-story.append(Paragraph("2. <b>AI/NLP Processing Layer:</b> Entity/Ticker recognition, Loughran-McDonald & FinBERT-calibrated continuous sentiment scorer, and 6-class financial event categorizer.", bullet_style))
-story.append(Paragraph("3. <b>Persistence & Signal API:</b> SQLite relational database with SQLAlchemy ORM, JWT authorization, and FastAPI endpoints.", bullet_style))
-story.append(Paragraph("4. <b>Downstream Module A (Tactical Rebalancer):</b> Dynamic constituent weights (1% to 18%) for 15 curated S&P blue-chips with turnover and alpha tracking.", bullet_style))
-story.append(Paragraph("5. <b>Downstream Module B (Stress Tester):</b> Basel III Expected Loss simulation for Commercial Loans ($550M), Duration/Convexity model for Bonds ($485M), and DV01 model for Swaps ($250M).", bullet_style))
-story.append(PageBreak())
-
-# --- SLIDE 4: IMPLEMENTATION HIGHLIGHTS ---
-add_slide_header("Implementation Highlights & Key Tech Choices")
-story.append(Paragraph("Key Algorithms & Technical Highlights:", header_style))
-story.append(Paragraph("• <b>Sub-25ms NLP Inference:</b> Engineered for ultra-low latency, running high-accuracy domain scoring with hyperbolic tangent normalization.", bullet_style))
-story.append(Paragraph("• <b>Automated Severity Trigger Gate:</b> Triggers wholesale banking stress tests when event Impact Score ≥ 7.0 for systemic event classes (Geopolitical, Macro, Credit, Cyber).", bullet_style))
-story.append(Paragraph("• <b>ISTC Quantitative UI Aesthetic:</b> Dark obsidian terminal layout, real-time scrolling ticker marquee, glowing glassmorphic bento cards, and interactive sliders.", bullet_style))
-story.append(Paragraph("• <b>Zero-Friction Pitch Readiness:</b> Built-in 1-Click Evaluator demo logins and deterministic crisis replay engine to guarantee 100% demo uptime without external rate limits.", bullet_style))
-story.append(PageBreak())
-
-# --- SLIDE 5: KEY RESULTS & METRICS ---
-add_slide_header("Key Quantitative Results & Benchmark Validation")
-story.append(Paragraph("Performance Benchmarks & Experimental Results:", header_style))
-story.append(Paragraph("• <b>Module A Strategy Alpha:</b> Achieved <b>+34.2 bps net alpha</b> over equal-weight baseline by overweighting high-sentiment leaders while enforcing strict 18% concentration limits.", bullet_style))
-story.append(Paragraph("• <b>Controlled Turnover:</b> Maintained 6.8% portfolio turnover, mitigating excessive transaction friction under volatile news cycles.", bullet_style))
-story.append(Paragraph("• <b>Module B Balance Sheet Sensitivity:</b> In a simulated Geopolitical shock (+75bps yield, +150bps spread, 1.65x PD), identified a <b>-$60.0M (-6.00%) capital drawdown</b> on the $1.00B wholesale book ($940.0M retained capital).", bullet_style))
-story.append(Paragraph("• <b>System Performance:</b> 100% test pass rate across SQLite migrations, REST endpoints, and responsive Chart.js visual telemetry.", bullet_style))
-story.append(PageBreak())
-
-# --- SLIDE 6: DOMAIN IMPACT & BUSINESS VALUE ---
-add_slide_header("Domain Impact & Institutional Value")
-story.append(Paragraph("Why This Platform Matters for Financial Institutions:", header_style))
-story.append(Paragraph("• <b>Pre-emptive Risk Mitigation:</b> Allows Chief Risk Officers to detect counterparty distress and liquidity crunches days before official credit agency rating revisions.", bullet_style))
-story.append(Paragraph("• <b>Tactical Alpha Generation:</b> Equips quantitative portfolio managers with systematic, emotion-free momentum rebalancing during earnings and geopolitical volatility.", bullet_style))
-story.append(Paragraph("• <b>Wholesale Capital Adequacy:</b> Directly maps macro headline narratives into regulatory Basel III Expected Loss metrics, helping treasury desks hedge interest rate and credit duration risk.", bullet_style))
-story.append(PageBreak())
-
-# --- SLIDE 7: LIMITATIONS & FUTURE ROADMAP ---
-add_slide_header("Limitations & Strategic Future Roadmap")
-story.append(Paragraph("Assumptions, Constraints & Next Steps:", header_style))
-story.append(Paragraph("• <b>Expanded Universe:</b> Extend the constituent universe from S&P 15 to the full S&P 500 and Russell 2000 indices with distributed Celery workers.", bullet_style))
-story.append(Paragraph("• <b>Automated Order Routing:</b> Integrate FIX protocol connectors for direct market access (DMA) order execution upon rebalancing.", bullet_style))
-story.append(Paragraph("• <b>Multimodal Document Ingestion:</b> Incorporate PDF parsing for quarterly 10-K filings, earnings call transcripts, and central bank speeches.", bullet_style))
-story.append(Paragraph("• <b>Advanced Generative Commentary:</b> Plug in LLM-assisted executive briefings for automated morning risk memos.", bullet_style))
+story.append(Paragraph("Target Engineering Roadmap:", header_style))
+roadmap_data = [
+    [Paragraph("<b>Milestone</b>", header_style), Paragraph("<b>Objective</b>", header_style), Paragraph("<b>Expected Horizon</b>", header_style)],
+    [Paragraph("Phase 1 (Completed)", body_style), Paragraph("Unified NLP pipeline, dual downstream Module A & B, ISTC quantitative dashboard", body_style), Paragraph("Hackathon MVP (Live)", body_style)],
+    [Paragraph("Phase 2", body_style), Paragraph("Expand constituent universe from 15 S&P names to full S&P 500 & Russell 2000", body_style), Paragraph("Q2 2026", body_style)],
+    [Paragraph("Phase 3", body_style), Paragraph("FIX Protocol integration for direct DMA broker execution and automated hedging", body_style), Paragraph("Q3 2026", body_style)],
+    [Paragraph("Phase 4", body_style), Paragraph("Quarterly 10-K multimodal document ingestion and automated executive risk briefs", body_style), Paragraph("Q4 2026", body_style)]
+]
+roadmap_table = Table(roadmap_data, colWidths=[150, 440, 150])
+roadmap_table.setStyle(TableStyle([
+    ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#0f172a")),
+    ('BACKGROUND', (0,1), (-1,-1), colors.HexColor("#020617")),
+    ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#1e293b")),
+    ('TOPPADDING', (0,0), (-1,-1), 4),
+    ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+]))
+story.append(roadmap_table)
 
 doc.build(story)
 print(f"Presentation deck successfully created at {PDF_PATH}")
+
+# Copy to downloads
+for dest_name in ["presentation.pdf", "IITM_Vedant_Nalge_Presentation.pdf", "IITM_Vedant_Nalge_Trump_Russia_Deck.pdf"]:
+    dest = os.path.join(DOWNLOADS_DIR, dest_name)
+    try:
+        shutil.copyfile(PDF_PATH, dest)
+        print(f"Saved to {dest}")
+    except PermissionError:
+        alt_dest = dest.replace(".pdf", "_v2.pdf")
+        shutil.copyfile(PDF_PATH, alt_dest)
+        print(f"File locked, saved to {alt_dest}")
