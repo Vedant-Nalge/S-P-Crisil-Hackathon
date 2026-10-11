@@ -286,11 +286,3 @@ python main.py
 | **Phase 3** | **Q3 2026** | Execution & Hedging | Integrate FIX Protocol direct market access (DMA) connectors to execute automated hedges in dark pools. |
 | **Phase 4** | **Q4 2026** | Multimodal Intelligence | SEC 10-K/10-Q PDF table parser, central bank audio transcription, and automated executive morning risk memos. |
 
----
-
-## 8. Presentation & Deliverables Index
-
-- **Master PowerPoint Deck:** [`docs/presentation.pptx`](docs/presentation.pptx) (7 slides, embeds 6 live dashboard screenshots)
-- **Master PDF Pitch Deck:** [`docs/presentation.pdf`](docs/presentation.pdf) (High-resolution landscape layout)
-- **Architecture Diagram:** [`docs/architecture.png`](docs/architecture.png)
-- **Presentation Generators:** [`docs/generate_trump_russia_pptx.py`](docs/generate_trump_russia_pptx.py) and [`docs/generate_presentation.py`](docs/generate_presentation.py)
