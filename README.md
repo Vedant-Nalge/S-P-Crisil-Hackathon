@@ -16,7 +16,7 @@ Modern wholesale financial institutions, asset managers, and corporate treasury 
 To eliminate this qualitative-to-quantitative gap, we built the **Unified AI/NLP Financial Risk Engine & Dual Downstream Intelligence Platform**. The platform continuously ingests multi-source institutional news and high-velocity social sentiment, runs sub-25ms domain-specific NLP inference, and simultaneously powers **two production-grade downstream risk modules**:
 
 1. **Downstream Module A (Tactical Index Rebalancer):** A real-time equity index optimizer with bounded convex constraints that dynamically underweights distressed constituents while maintaining regulatory diversification caps ($18.87\%$ maximum single-name ceiling).
-2. **Downstream Module B (Wholesale Banking Stress Tester):** An event-driven capital adequacy engine that maps qualitative severity into multi-factor yield ($\Delta y$), credit spread ($\Delta s$), and probability of default ($\text{PD}$) shocks across a $\$1.0\text{B}$ wholesale balance sheet (Commercial Loans, Fixed-Rate Bonds, and Interest Rate Swaps) under Basel III Expected Loss frameworks.
+2. **Downstream Module B (Wholesale Banking Stress Tester):** An event-driven capital adequacy engine that maps qualitative severity into multi-factor yield ($\Delta y$), credit spread ($\Delta s$), and probability of default ($\text{PD}$) shocks across a $1.0B wholesale balance sheet (Commercial Loans, Fixed-Rate Bonds, and Interest Rate Swaps) under Basel III Expected Loss frameworks.
 3. **Interactive Verification Layer (RiskPulse AI Copilot):** A quantitative copilot with instant telemetry into live formulas, Merton credit models, and balance sheet waterfalls.
 
 ---
@@ -101,33 +101,50 @@ flowchart TD
 #### 2. Core AI/NLP Risk Engine
 - **Financial Entity Recognition:** Tokenizes incoming headlines, maps synonyms to corporate identifiers, and flags affected tickers (`AAPL`, `NVDA`, `PLTR`, `TSLA`, `MSFT`, `JPM`, etc.).
 - **Dual-Engine Sentiment Scoring:** Calibrated hybrid algorithm combining Loughran-McDonald institutional financial dictionaries with pre-trained FinBERT embeddings. Produces a continuous score normalized via hyperbolic tangent:
-  $$\text{Sentiment} = \tanh\left(\frac{N_{\text{pos}} - N_{\text{neg}}}{\sqrt{N_{\text{pos}} + N_{\text{neg}} + 1}}\right) \in [-1.00, +1.00]$$
+
+```math
+\text{Sentiment} = \tanh\left(\frac{N_{\text{pos}} - N_{\text{neg}}}{\sqrt{N_{\text{pos}} + N_{\text{neg}} + 1}}\right) \in [-1.00, +1.00]
+```
+
 - **6-Class Event Classifier:** Categorizes text into six systemic financial taxonomies:
-  $$\mathcal{C} \in \{\text{Geopolitical}, \text{Macroeconomic}, \text{Credit/Default}, \text{Cyber/Operational}, \text{Regulatory}, \text{Earnings/Growth}\}$$
+  - `Geopolitical`, `Macroeconomic`, `Credit/Default`, `Cyber/Operational`, `Regulatory`, `Earnings/Growth`
 - **Impact Severity Scorer (1.0 to 10.0):** Combines keyword density, source credibility weighting, and polarization intensity to calculate a calibrated impact magnitude.
 
 #### 3. Automated Severity Trigger Gate
 - An automated circuit breaker trips whenever:
-  $$\text{Severity Impact} \ge 7.0 \quad \text{AND} \quad \text{Class} \in \{\text{Geopolitical}, \text{Macroeconomic}, \text{Credit}, \text{Cyber}\}$$
-- When triggered, the platform immediately broadcasts an institutional signal toast and dispatches calibrated shock parameters ($\Delta y, \Delta s, \text{PD}_{\text{mult}}$) to Downstream Module B.
+  - **Severity Impact $\ge 7.0$** AND **Class $\in$ {Geopolitical, Macroeconomic, Credit, Cyber}**
+- When triggered, the platform immediately broadcasts an institutional signal toast and dispatches calibrated shock parameters ($\Delta y$, $\Delta s$, $\text{PD}_{\text{mult}}$) to Downstream Module B.
 
 #### 4. Downstream Module A: Tactical Index Rebalancer
 - **Universe:** 15 curated blue-chip equities representing Technology, Healthcare, Financials, and Energy.
 - **Bounded Box Convex Optimizer:** Rebalances constituent weights $w_i$ by solving:
-  $$\min_{\mathbf{w}} \quad -\sum_{i=1}^{n} w_i \cdot \alpha_i(\text{Sentiment}_i) + \lambda \sum_{i=1}^{n} (w_i - w_i^{\text{prev}})^2$$
-  $$\text{subject to} \quad \sum_{i=1}^{n} w_i = 1.0, \quad w_{\min} \le w_i \le w_{\max}$$
+
+```math
+\min_{\mathbf{w}} \quad -\sum_{i=1}^{n} w_i \cdot \alpha_i(\text{Sentiment}_i) + \lambda \sum_{i=1}^{n} (w_i - w_i^{\text{prev}})^2
+```
+
+```math
+\text{subject to} \quad \sum_{i=1}^{n} w_i = 1.0, \quad 1.0\% \le w_i \le 18.87\%
+```
+
   where $w_{\min} = 1.0\%$ (liquidity presence), $w_{\max} = 18.87\%$ (concentration risk limit), and $\lambda$ penalizes portfolio turnover.
 
 #### 5. Downstream Module B: Wholesale Banking Stress Tester
-- **Portfolio Book ($\$1,000.0\text{M}$ Baseline):**
-  - **Commercial Loans ($\$550.0\text{M}$):** Basel III Expected Loss ($\text{EL}$) formulated as:
-    $$\text{EL} = \text{EAD} \times \text{PD}_{\text{stressed}} \times \text{LGD}$$
+- **Portfolio Book ($1,000.0M / $1.0B Baseline):**
+  - **Commercial Loans ($550.0M):** Basel III Expected Loss ($\text{EL}$) formulated as:
+```math
+\text{EL} = \text{EAD} \times \text{PD}_{\text{stressed}} \times \text{LGD}
+```
     where default probabilities migrate according to the Merton/Vasicek single-factor credit model under macroeconomic stress.
-  - **Corporate Fixed-Rate Bonds ($\$485.0\text{M}$):** Full second-order Taylor expansion for bond re-pricing under joint yield ($\Delta y$) and credit spread ($\Delta s$) shifts:
-    $$\frac{\Delta P}{P} \approx -D^* (\Delta y + \Delta s) + \frac{1}{2} C (\Delta y + \Delta s)^2$$
+  - **Corporate Fixed-Rate Bonds ($485.0M):** Full second-order Taylor expansion for bond re-pricing under joint yield ($\Delta y$) and credit spread ($\Delta s$) shifts:
+```math
+\frac{\Delta P}{P} \approx -D^* (\Delta y + \Delta s) + \frac{1}{2} C (\Delta y + \Delta s)^2
+```
     where $D^*$ is Modified Duration and $C$ is Convexity.
-  - **Interest Rate Swaps ($\$250.0\text{M}$ Notional):** Mark-to-market dollar duration sensitivity:
-    $$\Delta \text{MTM} = -\text{DV01} \times \Delta y \times 10{,}000$$
+  - **Interest Rate Swaps ($250.0M Notional):** Mark-to-market dollar duration sensitivity:
+```math
+\Delta \text{MTM} = -\text{DV01} \times \Delta y \times 10{,}000
+```
 - **Capital Waterfall:** Dynamically aggregates losses across all three asset classes to compute post-stress Tier-1 capital preservation.
 
 #### 6. RiskPulse AI Copilot
@@ -198,7 +215,7 @@ During our live test scenario, the platform ingested the breaking geopolitical w
 | **Downstream Module A** | **`+5.00 bps`** Net Strategy Alpha | Protected capital by enforcing 18.87% caps on MSFT/GOOGL/JPM |
 | **Module A De-allocation** | TSLA cut to `1.14%`, AMZN to `1.19%` | Aggressively reduced exposure to vulnerable high-beta assets |
 | **Module A Turnover** | **`9.49%`** | Controlled rebalance friction to prevent trading cost drag |
-| **Downstream Module B** | $\Delta y = +104\text{ bps}$, $\Delta s = +351\text{ bps}$, $\text{PD} = 2.52\times$ | Multi-factor systemic shock applied across $\$1.0\text{B}$ book |
+| **Downstream Module B** | $\Delta y = +104\text{ bps}$, $\Delta s = +351\text{ bps}$, $\text{PD} = 2.52\times$ | Multi-factor systemic shock applied across $1.0B book |
 | **Module B Capital Loss** | **`-$206.4M` (`-20.64%`)** | Decomposed: Loans -$95.2M, Bonds -$78.4M, Swaps -$32.8M |
 | **Capital Preserved** | **`$793.6M` (`79.36%`)** | Balance sheet remains resilient above Basel III Tier-1 minimums |
 
@@ -216,7 +233,7 @@ The platform exposes an asynchronous, OpenAPI-compliant REST API accessible at `
 | `POST` | `/api/news/trigger-scenario` | Injects deterministic crisis events into live pipeline | Bearer JWT |
 | `GET` | `/api/rebalance/latest` | Returns current constituent weights, alpha, and turnover | Bearer JWT |
 | `POST` | `/api/rebalance/execute` | Executes bounded convex optimization for Module A | Bearer JWT |
-| `GET` | `/api/stress/portfolio` | Baseline $\$1.0\text{B}$ wholesale portfolio book structure | Bearer JWT |
+| `GET` | `/api/stress/portfolio` | Baseline $1.0B ($1,000.0M) wholesale portfolio book structure | Bearer JWT |
 | `POST` | `/api/stress/simulate` | Executes Basel III Expected Loss and duration stress test | Bearer JWT |
 | `POST` | `/api/copilot/query` | RiskPulse AI Copilot quantitative formula and data query | Bearer JWT |
 
