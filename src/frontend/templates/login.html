@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institutional Quant Gateway | Financial Risk Engine</title>
+    
+    <!-- Google Fonts: Space Grotesk + Inter + JetBrains Mono (istc.co Typography) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'surface-0': '#0d0f14',
+                        'surface-1': '#161922',
+                        'surface-2': '#1c202c',
+                        'surface-3': '#232838',
+                        'border': '#262b38',
+                        'accent': '#9d84ff',
+                        'accent-dim': '#7a62df',
+                        'ink': '#f2f4f8',
+                        'ink-dim': '#9aa1b2',
+                        'ink-faint': '#626a7c',
+                        'buy': '#35c471',
+                        'sell': '#ff5c5c',
+                        'gold': '#eab308'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0d0f14;
+            color: #f2f4f8;
+            font-family: 'Inter', sans-serif;
+            background-image: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(157, 132, 255, 0.18), transparent 70%),
+                radial-gradient(circle at 100% 100%, rgba(53, 196, 113, 0.08), transparent 50%);
+            min-height: 100vh;
+        }
+        .istc-card {
+            background: rgba(22, 25, 34, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid #262b38;
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .istc-btn-primary {
+            background: linear-gradient(135deg, #9d84ff 0%, #7a62df 100%);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 20px rgba(157, 132, 255, 0.35);
+        }
+        .istc-btn-primary:hover {
+            box-shadow: 0 0 30px rgba(157, 132, 255, 0.55);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-5 relative overflow-x-hidden">
+
+    <!-- Ambient Ambient Blur Orbs -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute left-1/2 top-[-10%] h-[550px] w-[700px] -translate-x-1/2 rounded-full bg-accent/20 blur-[140px]"></div>
+        <div class="absolute -left-28 top-[40%] h-[400px] w-[400px] rounded-full bg-buy/10 blur-[130px]"></div>
+        <div class="absolute -right-28 top-[20%] h-[450px] w-[450px] rounded-full bg-sell/10 blur-[130px]"></div>
+    </div>
+
+    <!-- Login & Registration Modal Box -->
+    <div class="w-full max-w-md space-y-6">
+        
+        <!-- Header Brand -->
+        <div class="text-center space-y-2">
+            <div class="inline-flex items-center gap-3">
+                <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-accent to-accent-dim flex items-center justify-center text-white shadow-[0_0_15px_rgba(157,132,255,0.45)]">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-white"></i>
+                </div>
+                <div class="text-left">
+                    <span class="block font-display text-lg font-bold tracking-tight text-ink">FINANCIAL RISK ENGINE</span>
+                    <span class="block text-[10px] font-mono uppercase tracking-widest text-accent">Quantitative Risk Intelligence Platform</span>
+                </div>
+            </div>
+            <p class="text-xs text-ink-dim pt-1 font-sans">Secure, role-based PBKDF2 authentication gateway</p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="istc-card p-7 space-y-6">
+
+            <!-- Card Banner Illustration: Clean Creative Quant Doodle Illustration -->
+            <div class="rounded-2xl overflow-hidden border border-border/80 h-36 relative bg-gradient-to-br from-surface-2 via-surface-3/50 to-surface-1 flex items-center justify-center p-4">
+                <!-- SVG Doodle Graphic of Quantitative Graph, Candles, and Financial Pulses -->
+                <svg class="w-full h-full max-h-28 text-accent/80" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background Grid Doodle Lines -->
+                    <path d="M10 20 H390 M10 60 H390 M10 100 H390" stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="4 4" stroke-width="1"/>
+                    <path d="M60 10 V110 M140 10 V110 M220 10 V110 M300 10 V110" stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="4 4" stroke-width="1"/>
+                    
+                    <!-- Candlestick Doodles -->
+                    <line x1="45" y1="35" x2="45" y2="85" stroke="#35c471" stroke-width="1.5" stroke-linecap="round"/>
+                    <rect x="40" y="45" width="10" height="25" rx="2" fill="#35c471" fill-opacity="0.35" stroke="#35c471" stroke-width="1.5"/>
+
+                    <line x1="85" y1="25" x2="85" y2="75" stroke="#ff5c5c" stroke-width="1.5" stroke-linecap="round"/>
+                    <rect x="80" y="35" width="10" height="20" rx="2" fill="#ff5c5c" fill-opacity="0.35" stroke="#ff5c5c" stroke-width="1.5"/>
+
+                    <line x1="125" y1="40" x2="125" y2="95" stroke="#35c471" stroke-width="1.5" stroke-linecap="round"/>
+                    <rect x="120" y="50" width="10" height="30" rx="2" fill="#35c471" fill-opacity="0.35" stroke="#35c471" stroke-width="1.5"/>
+
+                    <!-- Smooth Alpha Wave Doodle -->
+                    <path d="M140 85 C 170 85, 185 30, 220 45 C 255 60, 275 25, 310 35 C 345 45, 365 20, 390 15" 
+                          stroke="#9d84ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M140 85 C 170 85, 185 30, 220 45 C 255 60, 275 25, 310 35 C 345 45, 365 20, 390 15 L 390 110 L 140 110 Z" 
+                          fill="url(#doodleGrad)" opacity="0.15"/>
+
+                    <!-- Neural Network Nodes Doodle -->
+                    <circle cx="220" cy="45" r="5" fill="#9d84ff" stroke="#fff" stroke-width="1.5"/>
+                    <circle cx="310" cy="35" r="5" fill="#35c471" stroke="#fff" stroke-width="1.5"/>
+                    <circle cx="390" cy="15" r="5" fill="#eab308" stroke="#fff" stroke-width="1.5"/>
+
+                    <line x1="220" y1="45" x2="260" y2="85" stroke="#9d84ff" stroke-dasharray="2 3" stroke-width="1.5" opacity="0.6"/>
+                    <circle cx="260" cy="85" r="4" fill="#1c202c" stroke="#9d84ff" stroke-width="1.5"/>
+
+                    <!-- Gradients -->
+                    <defs>
+                        <linearGradient id="doodleGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#9d84ff"/>
+                            <stop offset="100%" stop-color="#0d0f14"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+
+                <div class="absolute inset-0 bg-gradient-to-t from-surface-1 via-transparent to-transparent pointer-events-none"></div>
+                <span class="absolute bottom-2.5 left-3 text-[10px] font-mono bg-surface-0/90 px-2.5 py-0.5 rounded-full text-accent border border-accent/30 flex items-center gap-1.5 shadow-sm">
+                    <span class="h-1.5 w-1.5 rounded-full bg-buy animate-pulse"></span> QUANT GATEWAY
+                </span>
+            </div>
+
+            <!-- Segmented Auth Mode Switcher (Sign In vs Sign Up) -->
+            <div class="flex items-center p-1 bg-surface-2 rounded-xl border border-border">
+                <button type="button" onclick="setAuthTab('login')" id="tabBtn-login" class="flex-1 py-2 text-xs font-display font-semibold rounded-lg transition-all bg-accent text-white shadow-[0_0_12px_rgba(157,132,255,0.35)]">
+                    Sign In
+                </button>
+                <button type="button" onclick="setAuthTab('signup')" id="tabBtn-signup" class="flex-1 py-2 text-xs font-display font-semibold rounded-lg transition-all text-ink-dim hover:text-ink">
+                    Create Account
+                </button>
+            </div>
+
+            <!-- Error/Success Feedback Message Banner -->
+            <div id="authAlertBanner" class="hidden p-3 rounded-xl border text-xs font-mono flex items-center gap-2">
+                <i data-lucide="info" class="w-4 h-4 shrink-0"></i>
+                <span id="authAlertText">Alert message</span>
+            </div>
+
+            <!-- SIGN IN FORM -->
+            <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block font-mono text-[11px] uppercase tracking-wider text-ink-dim mb-1">Username</label>
+                    <div class="relative">
+                        <i data-lucide="user" class="w-4 h-4 text-ink-faint absolute left-3 top-2.5"></i>
+                        <input type="text" id="loginUsername" required placeholder="admin or analyst" 
+                            class="w-full bg-surface-2 border border-border rounded-xl pl-9 pr-3 py-2 text-xs text-ink placeholder-ink-faint focus:outline-none focus:border-accent font-mono transition-colors">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-mono text-[11px] uppercase tracking-wider text-ink-dim mb-1">Password</label>
+                    <div class="relative">
+                        <i data-lucide="lock" class="w-4 h-4 text-ink-faint absolute left-3 top-2.5"></i>
+                        <input type="password" id="loginPassword" required placeholder="admin123 or analyst123" 
+                            class="w-full bg-surface-2 border border-border rounded-xl pl-9 pr-3 py-2 text-xs text-ink placeholder-ink-faint focus:outline-none focus:border-accent font-mono transition-colors">
+                    </div>
+                </div>
+
+                <button type="submit" id="loginBtn" class="w-full py-2.5 istc-btn-primary text-xs flex items-center justify-center gap-2">
+                    <i data-lucide="log-in" class="w-4 h-4"></i> Enter Risk Intelligence Dashboard
+                </button>
+            </form>
+
+            <!-- SIGN UP FORM -->
+            <form id="signupForm" onsubmit="handleSignupSubmit(event)" class="hidden space-y-4">
+                <div>
+                    <label class="block font-mono text-[11px] uppercase tracking-wider text-ink-dim mb-1">Choose Username</label>
+                    <div class="relative">
+                        <i data-lucide="user-plus" class="w-4 h-4 text-ink-faint absolute left-3 top-2.5"></i>
+                        <input type="text" id="signupUsername" required placeholder="e.g. vedant_quant" 
+                            class="w-full bg-surface-2 border border-border rounded-xl pl-9 pr-3 py-2 text-xs text-ink placeholder-ink-faint focus:outline-none focus:border-accent font-mono transition-colors">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-mono text-[11px] uppercase tracking-wider text-ink-dim mb-1">Choose Secure Password</label>
+                    <div class="relative">
+                        <i data-lucide="key" class="w-4 h-4 text-ink-faint absolute left-3 top-2.5"></i>
+                        <input type="password" id="signupPassword" required placeholder="At least 4 characters" 
+                            class="w-full bg-surface-2 border border-border rounded-xl pl-9 pr-3 py-2 text-xs text-ink placeholder-ink-faint focus:outline-none focus:border-accent font-mono transition-colors">
+                    </div>
+                </div>
+
+                <input type="hidden" id="signupRole" value="portfolio_manager">
+
+                <button type="submit" id="signupBtn" class="w-full py-2.5 rounded-xl bg-buy hover:bg-emerald-600 text-white font-display font-semibold text-xs shadow-[0_0_15px_rgba(53,196,113,0.35)] transition flex items-center justify-center gap-2">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i> Create Account & Proceed
+                </button>
+            </form>
+
+        </div>
+
+        <!-- Clean Footer Security Note -->
+        <div class="text-center text-[11px] font-mono text-ink-faint">
+            <p>Protected by PBKDF2 HMAC-SHA256 password salting & SQLite ACID persistence.</p>
+        </div>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        let currentAuthTab = 'login';
+
+        function setAuthTab(tab) {
+            currentAuthTab = tab;
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const tabBtnLogin = document.getElementById('tabBtn-login');
+            const tabBtnSignup = document.getElementById('tabBtn-signup');
+            const banner = document.getElementById('authAlertBanner');
+            if (banner) banner.classList.add('hidden');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                tabBtnLogin.className = "flex-1 py-2 text-xs font-display font-semibold rounded-lg transition-all bg-accent text-white shadow-[0_0_12px_rgba(157,132,255,0.35)]";
+                tabBtnSignup.className = "flex-1 py-2 text-xs font-display font-semibold rounded-lg transition-all text-ink-dim hover:text-ink";
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                tabBtnSignup.className = "flex-1 py-2 text-xs font-display font-semibold rounded-lg transition-all bg-buy text-white shadow-[0_0_12px_rgba(53,196,113,0.35)]";
+                tabBtnLogin.className = "flex-1 py-2 text-xs font-display font-semibold rounded-lg transition-all text-ink-dim hover:text-ink";
+            }
+            lucide.createIcons();
+        }
+
+        function showAlert(msg, isError = true) {
+            const banner = document.getElementById('authAlertBanner');
+            const text = document.getElementById('authAlertText');
+            banner.classList.remove('hidden');
+            if (isError) {
+                banner.className = "p-3 rounded-xl border border-sell/40 bg-sell/10 text-sell text-xs font-mono flex items-center gap-2";
+            } else {
+                banner.className = "p-3 rounded-xl border border-buy/40 bg-buy/10 text-buy text-xs font-mono flex items-center gap-2";
+            }
+            text.innerText = msg;
+        }
+
+        async function handleLoginSubmit(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            await authenticateAndRedirect(username, password, false);
+        }
+
+        async function handleSignupSubmit(e) {
+            e.preventDefault();
+            const username = document.getElementById('signupUsername').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const role = document.getElementById('signupRole').value;
+
+            try {
+                const res = await fetch('/api/auth/signup', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ username, password, role })
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    showAlert(data.detail || 'Sign up failed');
+                    return;
+                }
+                sessionStorage.setItem('auth_token', data.access_token);
+                sessionStorage.setItem('auth_user', JSON.stringify({ username: data.username, role: data.role }));
+                showAlert('Account created! Entering dashboard...', false);
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 600);
+            } catch (err) {
+                showAlert('Network error: ' + err.message);
+            }
+        }
+
+        async function fastPassLogin(type) {
+            const username = type === 'admin' ? 'admin' : 'analyst';
+            const password = type === 'admin' ? 'admin123' : 'analyst123';
+            await authenticateAndRedirect(username, password, false);
+        }
+
+        async function authenticateAndRedirect(username, password, isSignup = false) {
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    showAlert(data.detail || 'Invalid username or password');
+                    return;
+                }
+                sessionStorage.setItem('auth_token', data.access_token);
+                sessionStorage.setItem('auth_user', JSON.stringify({ username: data.username, role: data.role }));
+                showAlert('Authenticated! Entering dashboard...', false);
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 500);
+            } catch (err) {
+                showAlert('Authentication error: ' + err.message);
+            }
+        }
+    </script>
+</body>
+</html>
