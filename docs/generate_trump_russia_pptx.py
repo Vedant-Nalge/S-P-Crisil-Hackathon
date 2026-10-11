@@ -310,13 +310,15 @@ def build_trump_russia_deck(output_paths):
     set_bg(s7)
     add_header(s7, "Institutional Domain Impact, AI Copilot & Strategic Roadmap")
 
-    # Left: AI Copilot Screenshot
-    copilot_img = os.path.join(DOCS_DIR, "shot_copilot.png")
+    # Left: RiskPulse AI Copilot Screenshot
+    copilot_img = os.path.join(DOCS_DIR, "trump_russia_copilot.png")
+    if not os.path.exists(copilot_img):
+        copilot_img = os.path.join(DOCS_DIR, "shot_copilot.png")
     if os.path.exists(copilot_img):
-        s7.shapes.add_picture(copilot_img, Inches(0.8), Inches(1.55), Inches(4.3), Inches(5.35))
+        s7.shapes.add_picture(copilot_img, Inches(0.8), Inches(1.55), Inches(4.0), Inches(5.13))
 
     # Right Top: Institutional Impact Pillars
-    rc_top = s7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(5.3), Inches(1.55), Inches(7.2), Inches(2.7))
+    rc_top = s7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(5.1), Inches(1.55), Inches(7.4), Inches(2.7))
     rc_top.fill.solid(); rc_top.fill.fore_color.rgb = CARD_BG
     rc_top.line.color.rgb = GOLD; rc_top.line.width = Pt(1.5)
     tf = rc_top.text_frame; tf.margin_left = Inches(0.3); tf.margin_top = Inches(0.2); tf.word_wrap = True

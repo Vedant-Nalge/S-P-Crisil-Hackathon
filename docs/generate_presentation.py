@@ -222,43 +222,56 @@ mod_b_table.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'TOP')]))
 story.append(mod_b_table)
 story.append(PageBreak())
 
-# --- SLIDE 7: BUSINESS IMPACT & ROADMAP ---
-add_slide_header("Strategic Institutional Impact & Production Roadmap")
-story.append(Paragraph("Enterprise Value Proposition:", header_style))
-impact_data = [
-    [Paragraph("<b>Institutional Persona</b>", header_style), Paragraph("<b>Pre-Engine State (Manual/Lagged)</b>", header_style), Paragraph("<b>With Financial Risk Engine</b>", header_style)],
-    [Paragraph("Chief Risk Officer (CRO)", body_style), Paragraph("Quarterly stress reports, 2-3 week turnaround on black swan events", body_style), Paragraph("Instantaneous sub-second balance sheet capital re-appraisal (Basel III)", body_style)],
-    [Paragraph("Quantitative Portfolio Manager", body_style), Paragraph("Emotional panic selling or delayed rebalancing during shock news", body_style), Paragraph("Algorithmic bounded convex reallocation generating +5 bps alpha", body_style)],
-    [Paragraph("Treasury & Balance Sheet Desk", body_style), Paragraph("Opaque duration and credit spread mismatch under geopolitical shocks", body_style), Paragraph("Real-time DV01 and spread sensitivity across multi-asset books", body_style)]
+# --- SLIDE 7: BUSINESS IMPACT, AI COPILOT & ROADMAP ---
+add_slide_header("Institutional Domain Impact, RiskPulse AI Copilot & Strategic Roadmap")
+
+s7_col1 = []
+copilot_pdf_img = os.path.join(DOCS_DIR, "trump_russia_copilot.png")
+if os.path.exists(copilot_pdf_img):
+    s7_col1.append(Paragraph("<b>RiskPulse AI Copilot (Live Advisory):</b>", header_style))
+    s7_col1.append(Image(copilot_pdf_img, width=220, height=282))
+
+s7_col2 = [
+    Paragraph("Enterprise Value Proposition:", header_style),
 ]
-impact_table = Table(impact_data, colWidths=[170, 280, 290])
+impact_data = [
+    [Paragraph("<b>Institutional Persona</b>", header_style), Paragraph("<b>Pre-Engine State</b>", header_style), Paragraph("<b>With Risk Engine Platform</b>", header_style)],
+    [Paragraph("Chief Risk Officer (CRO)", body_style), Paragraph("Lagged quarterly reports, 2-3 wk turnaround on black swans", body_style), Paragraph("Instant sub-second Basel III balance sheet capital re-appraisal", body_style)],
+    [Paragraph("Quant Portfolio Mgr", body_style), Paragraph("Emotional panic selling or delayed rebalancing on shock news", body_style), Paragraph("Algorithmic bounded convex reallocation generating +5 bps alpha", body_style)],
+    [Paragraph("Treasury & Balance Desk", body_style), Paragraph("Opaque duration and credit spread mismatch under shocks", body_style), Paragraph("Real-time DV01 and spread sensitivity across multi-asset books", body_style)]
+]
+impact_table = Table(impact_data, colWidths=[130, 185, 195])
 impact_table.setStyle(TableStyle([
     ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#0f172a")),
     ('BACKGROUND', (0,1), (-1,-1), colors.HexColor("#020617")),
     ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#1e293b")),
-    ('TOPPADDING', (0,0), (-1,-1), 5),
-    ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+    ('TOPPADDING', (0,0), (-1,-1), 3),
+    ('BOTTOMPADDING', (0,0), (-1,-1), 3),
 ]))
-story.append(impact_table)
-story.append(Spacer(1, 10))
+s7_col2.append(impact_table)
+s7_col2.append(Spacer(1, 6))
 
-story.append(Paragraph("Target Engineering Roadmap:", header_style))
+s7_col2.append(Paragraph("Target Engineering Roadmap:", header_style))
 roadmap_data = [
-    [Paragraph("<b>Milestone</b>", header_style), Paragraph("<b>Objective</b>", header_style), Paragraph("<b>Expected Horizon</b>", header_style)],
-    [Paragraph("Phase 1 (Completed)", body_style), Paragraph("Unified NLP pipeline, dual downstream Module A & B, ISTC quantitative dashboard", body_style), Paragraph("Hackathon MVP (Live)", body_style)],
-    [Paragraph("Phase 2", body_style), Paragraph("Expand constituent universe from 15 S&P names to full S&P 500 & Russell 2000", body_style), Paragraph("Q2 2026", body_style)],
+    [Paragraph("<b>Milestone</b>", header_style), Paragraph("<b>Objective</b>", header_style), Paragraph("<b>Horizon</b>", header_style)],
+    [Paragraph("Phase 1 (Done)", body_style), Paragraph("Unified NLP pipeline, dual downstream Module A & B, AI copilot", body_style), Paragraph("Live MVP", body_style)],
+    [Paragraph("Phase 2", body_style), Paragraph("Scale constituent universe from 15 S&P names to full S&P 500 & Russell 2000", body_style), Paragraph("Q2 2026", body_style)],
     [Paragraph("Phase 3", body_style), Paragraph("FIX Protocol integration for direct DMA broker execution and automated hedging", body_style), Paragraph("Q3 2026", body_style)],
-    [Paragraph("Phase 4", body_style), Paragraph("Quarterly 10-K multimodal document ingestion and automated executive risk briefs", body_style), Paragraph("Q4 2026", body_style)]
+    [Paragraph("Phase 4", body_style), Paragraph("Quarterly 10-K multimodal document ingestion and automated risk memos", body_style), Paragraph("Q4 2026", body_style)]
 ]
-roadmap_table = Table(roadmap_data, colWidths=[150, 440, 150])
+roadmap_table = Table(roadmap_data, colWidths=[105, 315, 90])
 roadmap_table.setStyle(TableStyle([
     ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#0f172a")),
     ('BACKGROUND', (0,1), (-1,-1), colors.HexColor("#020617")),
     ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#1e293b")),
-    ('TOPPADDING', (0,0), (-1,-1), 4),
-    ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+    ('TOPPADDING', (0,0), (-1,-1), 3),
+    ('BOTTOMPADDING', (0,0), (-1,-1), 3),
 ]))
-story.append(roadmap_table)
+s7_col2.append(roadmap_table)
+
+s7_layout = Table([[s7_col1, s7_col2]], colWidths=[230, 510])
+s7_layout.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'TOP')]))
+story.append(s7_layout)
 
 doc.build(story)
 print(f"Presentation deck successfully created at {PDF_PATH}")
