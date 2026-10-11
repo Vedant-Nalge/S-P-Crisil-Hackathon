@@ -1,10 +1,10 @@
-# Unified AI/NLP Financial Risk Engine & Dual Downstream Intelligence Platform - S&P Global & Crisil Campus Hackathon 2026
+# Unified AI/NLP Financial Risk Engine & Dual Downstream Intelligence Platform
 
 **Candidate Name:** Vedant Dilip Nalge  
 **College Email ID:** me22b162@smail.iitm.ac.in  
 **College / Campus:** Indian Institute of Technology Madras  
-**Demo Video Link:** [YouTube / Unlisted - https://youtu.be/placeholder-demo-walkthrough](https://youtu.be/placeholder-demo-walkthrough)  
-**Slide Deck Link (if hosted externally):** Included in repository at [`docs/presentation.pdf`](docs/presentation.pdf)
+**Demo Video Link:** *[Awaiting Google Drive Link from User]*  
+**Slide Deck Link:** *[Awaiting Google Drive Link from User]* (Also available locally in repository at [`docs/presentation.pptx`](docs/presentation.pptx) and [`docs/presentation.pdf`](docs/presentation.pdf))
 
 ---
 
