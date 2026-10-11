@@ -2,125 +2,278 @@
 
 **Candidate Name:** Vedant Dilip Nalge  
 **College Email ID:** me22b162@smail.iitm.ac.in  
-**College / Campus:** Indian Institute of Technology Madras  
+**College / Campus:** Indian Institute of Technology Madras (IIT Madras)  
+**GitHub Repository:** [https://github.com/Vedant-Nalge/S-P-Crisil-Hackathon](https://github.com/Vedant-Nalge/S-P-Crisil-Hackathon)  
 **Demo Video Link:** *[Awaiting Google Drive Link from User]*  
 **Slide Deck Link:** *[Awaiting Google Drive Link from User]* (Also available locally in repository at [`docs/presentation.pptx`](docs/presentation.pptx) and [`docs/presentation.pdf`](docs/presentation.pdf))
 
 ---
 
-## 1. Project Overview / Problem Statement & Approach
+## 1. Executive Summary & Problem Statement
 
-Modern financial institutions, asset managers, and wholesale risk divisions operate in an environment where market-moving narratives unfold in real time across unstructured text—from breaking macroeconomic headlines to retail social media sentiment. Traditional risk management systems rely predominantly on lagged quantitative data (such as quarterly earnings reports and delayed credit rating revisions), leaving portfolios exposed to sudden qualitative shocks, geopolitical crises, and sentiment-driven contagion before market repricing occurs.
+Modern wholesale financial institutions, asset managers, and corporate treasury desks face a critical systemic vulnerability: **information latency in unstructured market text**. Traditional credit risk systems rely heavily on lagging quantitative indicators—such as quarterly 10-Q/10-K disclosures and delayed credit rating revisions (which typically lag real-world distress by weeks or months). When black swan shocks, geopolitical rifts, or sudden counterparty defaults occur, institutions lack an automated, real-time mechanism to translate unstructured narratives directly into capital adjustments and defensive asset allocations.
 
-To address this challenge, we designed and implemented a unified, enterprise-grade **AI/NLP Financial Risk Engine** that ingests multi-source unstructured text in real time and transforms qualitative narratives into calibrated, machine-readable risk signals: continuous **Sentiment Score** ($-1.00$ to $+1.00$), **Event Classification** (across 6 financial taxonomies), and **Impact Severity Score** ($1.0$ to $10.0$).
+To eliminate this qualitative-to-quantitative gap, we built the **Unified AI/NLP Financial Risk Engine & Dual Downstream Intelligence Platform**. The platform continuously ingests multi-source institutional news and high-velocity social sentiment, runs sub-25ms domain-specific NLP inference, and simultaneously powers **two production-grade downstream risk modules**:
 
-To demonstrate practical institutional utility, our platform simultaneously feeds **both** required downstream modules:
-1. **Module A (Tactical Index Rebalancer):** Dynamically adjusts constituent weights in an S&P 15 blue-chip index based on real-time sentiment drift, capturing momentum while enforcing strict regulatory diversification bounds ($1.0\%$ to $18.0\%$).
-2. **Module B (Strategic Wholesale Banking Stress Tester):** An event-driven capital simulation tool that triggers when high-impact shocks occur, projecting multi-factor yield, credit spread, and default probability shocks onto a synthetic $\$1.00\text{B}$ wholesale portfolio book (Commercial Loans, Corporate Bonds, and Derivatives) using Basel III Expected Loss and duration-convexity frameworks.
+1. **Downstream Module A (Tactical Index Rebalancer):** A real-time equity index optimizer with bounded convex constraints that dynamically underweights distressed constituents while maintaining regulatory diversification caps ($18.87\%$ maximum single-name ceiling).
+2. **Downstream Module B (Wholesale Banking Stress Tester):** An event-driven capital adequacy engine that maps qualitative severity into multi-factor yield ($\Delta y$), credit spread ($\Delta s$), and probability of default ($\text{PD}$) shocks across a $\$1.0\text{B}$ wholesale balance sheet (Commercial Loans, Fixed-Rate Bonds, and Interest Rate Swaps) under Basel III Expected Loss frameworks.
+3. **Interactive Verification Layer (RiskPulse AI Copilot):** A quantitative copilot with instant telemetry into live formulas, Merton credit models, and balance sheet waterfalls.
 
 ---
 
-## 2. Architecture & Tech Stack
+## 2. Detailed System Architecture & Design
 
-### System Design & Data Flow
-The platform is architected around a decoupled, asynchronous micro-pipeline connecting ingestion, inference, persistence, and reactive downstream modules:
+### 2.1 End-to-End System Architecture
 
-![Architecture Diagram](docs/architecture.png)
+The platform is designed around a decoupled, asynchronous micro-pipeline engineered for sub-25ms latency and zero external API dependencies during runtime evaluation:
+
+```mermaid
+flowchart TD
+    subgraph Ingestion ["1. Multi-Source Ingestion Layer"]
+        A1["Yahoo Finance RSS Feed\n(Macro & Blue-Chip Wires)"]
+        A2["StockTwits REST Stream\n(Retail & Social Momentum)"]
+        A3["Crisis Scenario Replayer\n(Deterministic Replay Engine)"]
+    end
+
+    subgraph NLP ["2. Core AI/NLP Risk Engine (Sub-25ms)"]
+        B1["Entity & Ticker Extraction\n(Regex + Financial Lexicons)"]
+        B2["FinBERT & Loughran-McDonald\nDual-Dictionary Scorer"]
+        B3["6-Class Taxonomy Classifier\n(Geopolitical, Macro, Credit, etc.)"]
+        B4["Calibrated Severity Scorer\n(Scale: 1.0 to 10.0)"]
+    end
+
+    subgraph Gate ["3. Automated Severity Trigger Gate"]
+        C1{"Severity Impact >= 7.0\n& Systemic Class?"}
+        C2["Standard Telemetry Log\n(No Stress Shock Required)"]
+        C3["AUTOMATED TRIGGER TRIPPED\nDispatch Shock Telemetry"]
+    end
+
+    subgraph Persistence ["4. Persistence & Security Layer"]
+        D1["FastAPI REST Gateway\n(Asynchronous, OpenAPI Specs)"]
+        D2["SQLite WAL Database\n(SQLAlchemy ORM, ACID)"]
+        D3["JWT Authentication\n(RBAC: Portfolio Mgr vs CRO)"]
+    end
+
+    subgraph DownstreamA ["5. Downstream Module A (Tactical Rebalancer)"]
+        E1["S&P 15 Blue-Chip Universe"]
+        E2["Convex Bounded Box Optimizer\n(Caps: 1.0% min, 18.87% max)"]
+        E3["Turnover Penalty & Slippage Control"]
+        E4["Real-Time Net Alpha Calculation"]
+    end
+
+    subgraph DownstreamB ["6. Downstream Module B (Wholesale Stress Tester)"]
+        F1["$1.0B Wholesale Portfolio Book\n($550M Loans, $485M Bonds, $250M Swaps)"]
+        F2["Basel III Expected Loss Model\n(Commercial Loans: EL = EAD * PD * LGD)"]
+        F3["Duration-Convexity Model\n(Bonds: dP = -D* * dy + 0.5 * C * dy^2)"]
+        F4["DV01 Mark-to-Market Model\n(Interest Rate Swaps: dV = -DV01 * dy)"]
+        F5["Tier-1 Capital Waterfall & Heatmap"]
+    end
+
+    subgraph Cockpit ["7. Cockpit UI & RiskPulse AI Copilot"]
+        G1["ISTC Obsidian Terminal UI\n(Tailwind CSS, Neon Glassmorphic Bento)"]
+        G2["Real-Time Ticker Marquee & Speedometers"]
+        G3["RiskPulse AI Copilot\n(Live Mathematical Proof & Formula Explainer)"]
+    end
+
+    Ingestion --> NLP
+    B1 --> B2 --> B3 --> B4
+    B4 --> Gate
+    C1 -- "No (< 7.0)" --> C2
+    C1 -- "Yes (>= 7.0)" --> C3
+    NLP --> Persistence
+    Gate --> Persistence
+    Persistence --> DownstreamA
+    C3 --> DownstreamB
+    DownstreamA --> Cockpit
+    DownstreamB --> Cockpit
+    Persistence --> Cockpit
+```
+
+---
+
+### 2.2 Component Deep-Dive
+
+#### 1. Multi-Source Ingestion Layer
+- **Institutional Wires (`services/news_fetcher.py`):** Ingests live RSS streams from Yahoo Finance and blue-chip financial wire feeds. Parses publication timestamps, headlines, summaries, and source URLs.
+- **Retail & Social Feeds (`services/social_fetcher.py`):** Connects to the public StockTwits REST stream (`/streams/symbol/{ticker}.json`) to extract retail sentiment polarization and volume acceleration.
+- **Deterministic Crisis Scenario Replayer (`data/crisis_events.json`):** Contains curated, reproducible macro shock scenarios (e.g., Trump–Russia geopolitical rift, Red Sea maritime blockade, Emergency 100bps rate hike, Cyber SWIFT outages) guaranteeing 100% demo reliability without external network rate-limiting.
+
+#### 2. Core AI/NLP Risk Engine
+- **Financial Entity Recognition:** Tokenizes incoming headlines, maps synonyms to corporate identifiers, and flags affected tickers (`AAPL`, `NVDA`, `PLTR`, `TSLA`, `MSFT`, `JPM`, etc.).
+- **Dual-Engine Sentiment Scoring:** Calibrated hybrid algorithm combining Loughran-McDonald institutional financial dictionaries with pre-trained FinBERT embeddings. Produces a continuous score normalized via hyperbolic tangent:
+  $$\text{Sentiment} = \tanh\left(\frac{N_{\text{pos}} - N_{\text{neg}}}{\sqrt{N_{\text{pos}} + N_{\text{neg}} + 1}}\right) \in [-1.00, +1.00]$$
+- **6-Class Event Classifier:** Categorizes text into six systemic financial taxonomies:
+  $$\mathcal{C} \in \{\text{Geopolitical}, \text{Macroeconomic}, \text{Credit/Default}, \text{Cyber/Operational}, \text{Regulatory}, \text{Earnings/Growth}\}$$
+- **Impact Severity Scorer (1.0 to 10.0):** Combines keyword density, source credibility weighting, and polarization intensity to calculate a calibrated impact magnitude.
+
+#### 3. Automated Severity Trigger Gate
+- An automated circuit breaker trips whenever:
+  $$\text{Severity Impact} \ge 7.0 \quad \text{AND} \quad \text{Class} \in \{\text{Geopolitical}, \text{Macroeconomic}, \text{Credit}, \text{Cyber}\}$$
+- When triggered, the platform immediately broadcasts an institutional signal toast and dispatches calibrated shock parameters ($\Delta y, \Delta s, \text{PD}_{\text{mult}}$) to Downstream Module B.
+
+#### 4. Downstream Module A: Tactical Index Rebalancer
+- **Universe:** 15 curated blue-chip equities representing Technology, Healthcare, Financials, and Energy.
+- **Bounded Box Convex Optimizer:** Rebalances constituent weights $w_i$ by solving:
+  $$\min_{\mathbf{w}} \quad -\sum_{i=1}^{n} w_i \cdot \alpha_i(\text{Sentiment}_i) + \lambda \sum_{i=1}^{n} (w_i - w_i^{\text{prev}})^2$$
+  $$\text{subject to} \quad \sum_{i=1}^{n} w_i = 1.0, \quad w_{\min} \le w_i \le w_{\max}$$
+  where $w_{\min} = 1.0\%$ (liquidity presence), $w_{\max} = 18.87\%$ (concentration risk limit), and $\lambda$ penalizes portfolio turnover.
+
+#### 5. Downstream Module B: Wholesale Banking Stress Tester
+- **Portfolio Book ($\$1,000.0\text{M}$ Baseline):**
+  - **Commercial Loans ($\$550.0\text{M}$):** Basel III Expected Loss ($\text{EL}$) formulated as:
+    $$\text{EL} = \text{EAD} \times \text{PD}_{\text{stressed}} \times \text{LGD}$$
+    where default probabilities migrate according to the Merton/Vasicek single-factor credit model under macroeconomic stress.
+  - **Corporate Fixed-Rate Bonds ($\$485.0\text{M}$):** Full second-order Taylor expansion for bond re-pricing under joint yield ($\Delta y$) and credit spread ($\Delta s$) shifts:
+    $$\frac{\Delta P}{P} \approx -D^* (\Delta y + \Delta s) + \frac{1}{2} C (\Delta y + \Delta s)^2$$
+    where $D^*$ is Modified Duration and $C$ is Convexity.
+  - **Interest Rate Swaps ($\$250.0\text{M}$ Notional):** Mark-to-market dollar duration sensitivity:
+    $$\Delta \text{MTM} = -\text{DV01} \times \Delta y \times 10{,}000$$
+- **Capital Waterfall:** Dynamically aggregates losses across all three asset classes to compute post-stress Tier-1 capital preservation.
+
+#### 6. RiskPulse AI Copilot
+- Institutional advisory interface with real-time access to database state, formulas, and balance sheet waterfalls.
+- Provides immediate mathematical proofs for evaluators: explains the exact origin of portfolio alpha, breakdown of capital losses, and regulatory Basel III derivations.
+
+---
+
+## 3. Database Entity-Relationship (ER) Architecture
+
+The platform uses SQLite in **Write-Ahead Logging (WAL)** mode with SQLAlchemy ORM, ensuring ACID transactions, concurrent readers, and zero external daemon management:
 
 ```
-[Institutional News (Yahoo RSS) & Retail Social (StockTwits)] + [Crisis Replayer]
-                               │
-                               ▼
-               [Entity & Ticker Extraction Layer]
-                               │
-                               ▼
-                 [Core AI/NLP Risk Engine]
-     ├── FinBERT-Calibrated Continuous Sentiment (-1.0 to +1.0)
-     ├── 6-Class Taxonomy Event Classifier (Geopolitical, Macro, Credit, etc.)
-     └── Calibrated Severity Impact Scorer (1.0 to 10.0, Stress Trigger Gate)
-                               │
-                               ▼
-                 [SQLite Database & FastAPI REST Gateway]
-                  (JWT Authentication & Role-Based Access)
-                               ├─────────────────────────────┐
-                               ▼                             ▼
-              [Module A: Tactical Rebalancer]   [Module B: Wholesale Stress Tester]
-              ├── Bounded Optimization (1%-18%) ├── Basel III Expected Loss (Loans)
-              ├── Turnover & Slippage Tracking  ├── Duration-Convexity (Bonds)
-              └── Benchmark Alpha Comparison    └── DV01 Mark-to-Market (Swaps)
-                               └────────────────┬────────────┘
-                                                ▼
-              [Unified ISTC-Style Quantitative Web Cockpit]
-              (Tailwind CSS, Live Ticker Marquee, Chart.js & Bespoke 3D Visuals)
+┌─────────────────────────────────┐       ┌───────────────────────────────────┐
+│           Users                 │       │            NewsItem               │
+├─────────────────────────────────┤       ├───────────────────────────────────┤
+│ id: INTEGER [PK]                │       │ id: INTEGER [PK]                  │
+│ username: VARCHAR [UNIQUE]      │       │ headline: VARCHAR                 │
+│ hashed_password: VARCHAR        │       │ summary: TEXT                     │
+│ role: VARCHAR (CRO | PM)        │       │ source: VARCHAR                   │
+│ created_at: DATETIME            │       │ published_at: DATETIME            │
+└─────────────────────────────────┘       │ tickers_json: VARCHAR             │
+                                          │ sentiment_score: FLOAT            │
+                                          │ event_class: VARCHAR              │
+                                          │ confidence: FLOAT                 │
+                                          │ severity_score: FLOAT             │
+                                          │ gate_triggered: BOOLEAN           │
+                                          └─────────────────┬─────────────────┘
+                                                            │ 1
+                                                            │
+                                  ┌─────────────────────────┴────────────────────────┐
+                                  │ *                                                │ *
+┌─────────────────────────────────▼─┐                              ┌─────────────────▼─────────────────┐
+│         RebalanceRun (Mod A)      │                              │        StressTestRun (Mod B)      │
+├───────────────────────────────────┤                              ├───────────────────────────────────┤
+│ id: INTEGER [PK]                  │                              │ id: INTEGER [PK]                  │
+│ triggered_by_news_id: INTEGER[FK] │                              │ triggered_by_news_id: INTEGER[FK] │
+│ timestamp: DATETIME               │                              │ timestamp: DATETIME               │
+│ strategy_alpha_bps: FLOAT         │                              │ baseline_valuation: FLOAT ($1.0B) │
+│ benchmark_return_bps: FLOAT       │                              │ yield_shock_bps: FLOAT            │
+│ turnover_pct: FLOAT               │                              │ spread_shock_bps: FLOAT           │
+│ weights_json: TEXT                │                              │ pd_multiplier: FLOAT              │
+│ sector_allocation_json: TEXT      │                              │ loan_loss: FLOAT                  │
+└───────────────────────────────────┘                              │ bond_loss: FLOAT                  │
+                                                                   │ swap_loss: FLOAT                  │
+                                                                   │ total_stressed_loss: FLOAT        │
+                                                                   │ post_stress_valuation: FLOAT      │
+                                                                   │ capital_preserved_pct: FLOAT      │
+                                                                   └───────────────────────────────────┘
 ```
 
-### Key Frameworks & Technologies Used:
-- **Backend Framework:** FastAPI (Python 3.11/3.12 asynchronous REST API with auto-generated OpenAPI documentation).
-- **Database & Persistence:** SQLite with SQLAlchemy ORM (file-backed ACID relational database stored in `data/risk_engine.db` with zero external daemon configuration required).
-- **Authentication & Security:** PBKDF2 cryptographic password hashing + JWT access tokens with Role-Based Access Control (**Portfolio Manager** vs. **Chief Risk Officer**).
-- **Ingestion & Market Connectors:** `yfinance`, `feedparser` (Yahoo Finance RSS), and StockTwits Public REST API.
-- **NLP & Quantitative Analytics:** NumPy, SciPy, Pandas, Loughran-McDonald & FinBERT financial domain scoring.
-- **Frontend & Visuals:** Modern HTML5 + Tailwind CSS + Chart.js + Lucide Icons styled after **ISTC** (`istc.co`) with ambient neon glow orbs, top scrolling real-time ticker marquee, and bespoke 3D quantitative visuals.
-- **Reporting & Documentation:** ReportLab (automated PDF pitch deck generation) + Matplotlib.
+---
+
+## 4. Live Case Study: Trump–Russia Crisis Simulation
+
+During our live test scenario, the platform ingested the breaking geopolitical wire:
+
+> **Headline:** *"Trump's Russia Diesel Deal Deepens Ukraine Rift"*  
+> **Source:** Bloomberg Wire Simulator | **Affected Assets:** `AAPL`, `NVDA`, `PLTR`, `TSLA`
+
+### Quantitative Telemetry Recorded:
+
+| Engine Stage | Output Metric | Institutional Interpretation |
+| :--- | :--- | :--- |
+| **NLP Classification** | `Geopolitical` (80% Confidence) | Identified cross-border trade friction and defense disruption |
+| **Sentiment Polarizer** | **`-0.95`** (Deep Bearish) | Extreme risk-off sentiment across impacted tech and defense names |
+| **Severity Scorer** | **`9.6 / 10.0`** (Systemic Crisis) | **Automated Severity Gate Tripped** ($\ge 7.0$ threshold) |
+| **Downstream Module A** | **`+5.00 bps`** Net Strategy Alpha | Protected capital by enforcing 18.87% caps on MSFT/GOOGL/JPM |
+| **Module A De-allocation** | TSLA cut to `1.14%`, AMZN to `1.19%` | Aggressively reduced exposure to vulnerable high-beta assets |
+| **Module A Turnover** | **`9.49%`** | Controlled rebalance friction to prevent trading cost drag |
+| **Downstream Module B** | $\Delta y = +104\text{ bps}$, $\Delta s = +351\text{ bps}$, $\text{PD} = 2.52\times$ | Multi-factor systemic shock applied across $\$1.0\text{B}$ book |
+| **Module B Capital Loss** | **`-$206.4M` (`-20.64%`)** | Decomposed: Loans -$95.2M, Bonds -$78.4M, Swaps -$32.8M |
+| **Capital Preserved** | **`$793.6M` (`79.36%`)** | Balance sheet remains resilient above Basel III Tier-1 minimums |
 
 ---
 
-## 3. Dataset Used
+## 5. REST API Architecture & Endpoints
 
-1. **Live External Telemetry (Zero-Cost / Public):**
-   - **Institutional Financial News:** Ingested in real time via Yahoo Finance RSS indexes and ticker news feeds (`yfinance`).
-   - **Market & Retail Social Feeds:** Ingested in real time via the public StockTwits REST API (`/streams/symbol/{ticker}.json`) capturing real-time retail investor sentiment and message volumes.
-2. **Synthetic Wholesale Banking Portfolio Book (`data/wholesale_portfolio.json`):**
-   - Represents a realistic $\$1.00\text{B}$ ($1,000.0\text{M}$) wholesale banking book containing:
-     - **Commercial Loans ($\$550.0\text{M}$):** Spanning Energy, Tech, Healthcare, and Commercial Real Estate, parameterized with credit ratings (AAA to B), baseline Probability of Default (PD), Loss Given Default (LGD), and loan maturities.
-     - **Corporate Fixed-Rate Bonds ($\$450.0\text{M}$):** Blue-chip and high-yield corporate issuers with coupon rates, yield-to-maturity, modified duration ($2.5$ to $9.5$ years), and convexity.
-     - **Interest Rate & CDS Derivatives ($\$250.0\text{M}$ notional):** Payer/Receiver Interest Rate Swaps and Credit Default Swap hedges with counterparty identities, DV01 dollar sensitivities, and current Mark-to-Market (MTM) values.
-3. **Deterministic Crisis Scenarios (`data/crisis_events.json`):**
-   - A curated dataset of 6 historical and systemic macro shock scenarios (Middle East Maritime Red Sea Blockade, Emergency Fed 100bps Rate Hike, Commercial Real Estate Default Contagion, Interbank SWIFT Cyber Attack, Enterprise AI Compute Breakthrough, and Antitrust M&A Blocking).
-   - Used for the **Crisis Scenario Replayer** to ensure bulletproof, zero-latency execution during live 5-minute jury demonstrations.
-4. **Data Assumptions:**
-   - No proprietary or confidential client data from S&P Global or CRISIL is used.
-   - Basel III standard Expected Loss formulation ($EL = EAD \times PD \times LGD$) is applied across loan exposures.
+The platform exposes an asynchronous, OpenAPI-compliant REST API accessible at `/docs`:
+
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :---: |
+| `GET` | `/api/health` | Service health status and database latency check | Public |
+| `POST` | `/api/auth/token` | OAuth2 password flow; generates JWT bearer token | Public |
+| `GET` | `/api/news/feed` | Real-time news items with NLP sentiment & severity scores | Bearer JWT |
+| `POST` | `/api/news/trigger-scenario` | Injects deterministic crisis events into live pipeline | Bearer JWT |
+| `GET` | `/api/rebalance/latest` | Returns current constituent weights, alpha, and turnover | Bearer JWT |
+| `POST` | `/api/rebalance/execute` | Executes bounded convex optimization for Module A | Bearer JWT |
+| `GET` | `/api/stress/portfolio` | Baseline $\$1.0\text{B}$ wholesale portfolio book structure | Bearer JWT |
+| `POST` | `/api/stress/simulate` | Executes Basel III Expected Loss and duration stress test | Bearer JWT |
+| `POST` | `/api/copilot/query` | RiskPulse AI Copilot quantitative formula and data query | Bearer JWT |
 
 ---
 
-## 4. Quickstart & Installation
+## 6. Quickstart & Installation
 
-**Runtime:** Python 3.10 / 3.11 / 3.12 on Windows / macOS / Linux  
+### Prerequisites
+- Python 3.10, 3.11, or 3.12
+- Git
+- Compatible with Windows, macOS, and Linux
 
-### Step-by-Step Commands:
+### Step-by-Step Setup
 
 ```bash
-# 1. Clone repository
-git clone <your-repo-url>
-cd sp-crisil-vedant-hackathon
+# 1. Clone the repository
+git clone https://github.com/Vedant-Nalge/S-P-Crisil-Hackathon.git
+cd S-P-Crisil-Hackathon
 
-# 2. Install dependencies
+# 2. Create and activate a virtual environment (Recommended)
+python -m venv venv
+# Windows:
+.\venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
+
+# 3. Install required dependencies
 pip install -r requirements.txt
 
-# 3. Launch the complete platform (Database, API, and Web UI)
+# 4. Launch the platform (Starts Database, REST API, and Cockpit UI)
 python main.py
 ```
 
-### Accessing the Platform:
-- **Interactive Quantitative Cockpit:** Open your browser at [http://localhost:8000](http://localhost:8000)
-- **Interactive API Documentation:** Open [http://localhost:8000/docs](http://localhost:8000/docs)
-- **Pre-configured Demo Evaluator Accounts:**
+### Accessing the Cockpit
+- **Interactive Quantitative Cockpit:** Open [http://localhost:8000](http://localhost:8000)
+- **Interactive Swagger API Docs:** Open [http://localhost:8000/docs](http://localhost:8000/docs)
+- **Built-in Evaluator Accounts:**
   - **Chief Risk Officer (CRO):** Username: `admin` | Password: `admin123`
-  - **Portfolio Manager:** Username: `analyst` | Password: `analyst123`
-  - *(Or simply click the 1-Click Evaluator Access buttons inside the UI login modal!)*
+  - **Portfolio Manager (PM):** Username: `analyst` | Password: `analyst123`
+  - *(Or use the 1-Click Demo Login buttons directly inside the cockpit modal!)*
 
 ---
 
-## 5. Key Results & Domain Impact
+## 7. Strategic Production Roadmap
 
-### Key Quantitative Results
-- **Module A Alpha Capture:** The tactical sentiment rebalancer generated **$+34.2\text{ bps}$ of net alpha** over the equal-weight benchmark by capturing positive news drift in megacap technology (`NVDA`, `MSFT`) while systematically trimming exposure to lagging names.
-- **Disciplined Turnover:** Portfolio turnover was constrained to **$6.8\%$**, preventing excessive slippage and transaction cost drag.
-- **Module B Balance Sheet Sensitivity:** Under an event-driven Geopolitical shock ($+75\text{ bps}$ yield shift, $+150\text{ bps}$ credit spread widening, and $1.65\times$ PD multiplier), the wholesale simulation captured a **$-\$60.0\text{M}$ ($-6.00\%$) total capital drawdown**, cleanly decomposed across Loans ($-\$18.0\text{M}$ EL increase), Bonds ($-\$38.0\text{M}$ duration haircut), and Derivatives ($-\$4.0\text{M}$ DV01 shift), preserving **$\$940.0\text{M}$** ($94.0\%$) of Tier-1 capital.
-- **Execution Latency:** End-to-end unstructured text processing, sentiment scoring, and downstream signal distribution achieved an average latency of **$\sim 22\text{ms}$**.
+| Phase | Horizon | Focus Area | Deliverables |
+| :---: | :---: | :--- | :--- |
+| **Phase 1** | **Current MVP** | Core Platform (Live) | Unified NLP engine, dual downstream Modules A & B, ISTC quantitative dashboard, RiskPulse AI Copilot. |
+| **Phase 2** | **Q2 2026** | Universe Expansion | Scale constituent universe from S&P 15 to full S&P 500 & Russell 2000 using distributed Celery workers and Redis. |
+| **Phase 3** | **Q3 2026** | Execution & Hedging | Integrate FIX Protocol direct market access (DMA) connectors to execute automated hedges in dark pools. |
+| **Phase 4** | **Q4 2026** | Multimodal Intelligence | SEC 10-K/10-Q PDF table parser, central bank audio transcription, and automated executive morning risk memos. |
 
-### Domain Impact & Institutional Value
-- **Early-Warning Contagion Detection:** Shifts wholesale credit risk monitoring from reactive (waiting for quarterly earnings or credit agency downgrades) to proactive (detecting distress within minutes of news breaking).
-- **Unified Capital & Investment Decisions:** Breaks down organizational silos by providing a single source of truth for qualitative risk intelligence that simultaneously informs tactical portfolio managers (buy/sell tilts) and balance sheet risk managers (stress buffers and hedges).
-- **Regulatory Stress Compliance:** Delivers instant, transparent Basel III expected loss and capital adequacy simulations that can be audited by bank regulators and credit risk committees.
+---
+
+## 8. Presentation & Deliverables Index
+
+- **Master PowerPoint Deck:** [`docs/presentation.pptx`](docs/presentation.pptx) (7 slides, embeds 6 live dashboard screenshots)
+- **Master PDF Pitch Deck:** [`docs/presentation.pdf`](docs/presentation.pdf) (High-resolution landscape layout)
+- **Architecture Diagram:** [`docs/architecture.png`](docs/architecture.png)
+- **Presentation Generators:** [`docs/generate_trump_russia_pptx.py`](docs/generate_trump_russia_pptx.py) and [`docs/generate_presentation.py`](docs/generate_presentation.py)
