@@ -4,8 +4,8 @@
 **College Email ID:** me22b162@smail.iitm.ac.in  
 **College / Campus:** Indian Institute of Technology Madras (IIT Madras)  
 **GitHub Repository:** [https://github.com/Vedant-Nalge/S-P-Crisil-Hackathon](https://github.com/Vedant-Nalge/S-P-Crisil-Hackathon)  
-**Demo Video Link:** *[Awaiting Google Drive Link from User]*  
-**Slide Deck Link:** *[Awaiting Google Drive Link from User]* (Also available locally in repository at [`docs/presentation.pptx`](docs/presentation.pptx) and [`docs/presentation.pdf`](docs/presentation.pdf))
+**Demo Video Link (Google Drive):** [https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4](https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4)  
+**Presentation Slide Deck Link (Google Drive):** [https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4](https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4) *(also available locally at [`docs/presentation.pptx`](docs/presentation.pptx) & [`docs/presentation.pdf`](docs/presentation.pdf))*
 
 ---
 
