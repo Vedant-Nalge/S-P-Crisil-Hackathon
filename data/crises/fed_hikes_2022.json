@@ -1,0 +1,58 @@
+{
+  "crisisId": "fed-hikes-2022",
+  "name": "Aggressive Federal Reserve 75 bps Rate Hikes & Tech De-Rating",
+  "window": "10 Jun – 23 Jun 2022",
+  "description": "Historic runaway inflation print (8.6% CPI) forces the Federal Reserve to implement the largest benchmark rate hike in 28 years (+75 bps), causing steep bond duration losses and equity de-ratings.",
+  "benchmarks": {
+    "us10Y_TNX": 0.42,
+    "treasuries10Y_TLT": -0.068,
+    "realEstateXLRE": -0.092,
+    "sp500SPY": -0.076,
+    "highYieldHYG": -0.045
+  },
+  "headlines": [
+    {
+      "id": "fed-h1",
+      "date": "2022-06-10",
+      "text": "US Consumer Price Index accelerates to fresh 40-year peak of 8.6% in May, shattering expectations of an inflation plateau and driving 2-year yields to 2008 highs.",
+      "source": "Bureau of Labor Statistics",
+      "expectedEvent": "Macroeconomic",
+      "expectedSentiment": -0.84,
+      "expectedImpact": 8
+    },
+    {
+      "id": "fed-h2",
+      "date": "2022-06-13",
+      "text": "Wall Street Journal dispatches signal the Federal Reserve is actively preparing a jumbo 75 basis point rate increase at Wednesday's FOMC meeting.",
+      "source": "Wall Street Journal",
+      "expectedEvent": "Macroeconomic",
+      "expectedSentiment": -0.79,
+      "expectedImpact": 8
+    },
+    {
+      "id": "fed-h3",
+      "date": "2022-06-15",
+      "text": "Federal Reserve delivers historic 75 basis point rate hike, the biggest single-meeting rate increase since 1994, and signals ongoing restrictive policy trajectory.",
+      "source": "Federal Reserve Release",
+      "expectedEvent": "Macroeconomic",
+      "expectedSentiment": -0.72,
+      "expectedImpact": 9
+    },
+    {
+      "id": "fed-h4",
+      "date": "2022-06-16",
+      "text": "Swiss National Bank and Bank of England follow with surprise tightening moves; global equity markets tumble into formal bear market territory.",
+      "source": "Reuters Central Banking",
+      "expectedEvent": "Macroeconomic",
+      "expectedSentiment": -0.81,
+      "expectedImpact": 8
+    }
+  ],
+  "predictedFactorShocks": {
+    "equityShockPct": -0.082,
+    "ratesBps": 165,
+    "creditSpreadBps": 95,
+    "durationHaircutPct": -0.072,
+    "defaultMigration": 1.25
+  }
+}

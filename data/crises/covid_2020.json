@@ -1,0 +1,76 @@
+{
+  "crisisId": "covid-2020",
+  "name": "COVID-19 Global Market Crash & Liquidity Freeze",
+  "window": "24 Feb – 23 Mar 2020",
+  "description": "Global pandemic outbreak triggering unprecedented worldwide quarantine lockdowns, commercial aviation shutdowns, corporate credit market freezes, and a 34% drop in the S&P 500.",
+  "benchmarks": {
+    "sp500SPY": -0.339,
+    "energyXLE": -0.562,
+    "financialsXLF": -0.428,
+    "highYieldHYG": -0.205,
+    "treasuries10Y_TLT": 0.085
+  },
+  "headlines": [
+    {
+      "id": "cov-h1",
+      "date": "2020-02-24",
+      "text": "Global equity markets suffer worst single-day drop since 2008 as novel coronavirus cases surge across northern Italy, South Korea, and Iran.",
+      "source": "Reuters World",
+      "expectedEvent": "Macroeconomic",
+      "expectedSentiment": -0.82,
+      "expectedImpact": 8
+    },
+    {
+      "id": "cov-h2",
+      "date": "2020-03-09",
+      "text": "S&P 500 hits 7% circuit breaker at market open as Saudi Arabia and Russia launch crude oil price war amidst collapsing global travel demand.",
+      "source": "Bloomberg Energy",
+      "expectedEvent": "Geopolitical",
+      "expectedSentiment": -0.94,
+      "expectedImpact": 10
+    },
+    {
+      "id": "cov-h3",
+      "date": "2020-03-11",
+      "text": "World Health Organization officially declares COVID-19 a global pandemic as nationwide curfews and transatlantic flight restrictions are enacted.",
+      "source": "WHO / Associated Press",
+      "expectedEvent": "Macroeconomic",
+      "expectedSentiment": -0.89,
+      "expectedImpact": 9
+    },
+    {
+      "id": "cov-h4",
+      "date": "2020-03-15",
+      "text": "Federal Reserve cuts interest rates to zero in emergency Sunday move and announces $700 billion quantitative easing to unfreeze Treasury liquidity.",
+      "source": "Federal Reserve",
+      "expectedEvent": "Macroeconomic",
+      "expectedSentiment": -0.65,
+      "expectedImpact": 10
+    },
+    {
+      "id": "cov-h5",
+      "date": "2020-03-19",
+      "text": "Commercial paper and prime money market funds experience severe liquidity strains, prompting emergency secondary credit facility backstops.",
+      "source": "Financial Times",
+      "expectedEvent": "Credit Event",
+      "expectedSentiment": -0.87,
+      "expectedImpact": 9
+    },
+    {
+      "id": "cov-h6",
+      "date": "2020-03-23",
+      "text": "Federal Reserve pledges open-ended unlimited asset purchases and establishes Primary & Secondary Corporate Credit Facilities to support commercial debt.",
+      "source": "Wall Street Journal",
+      "expectedEvent": "Macroeconomic",
+      "expectedSentiment": 0.72,
+      "expectedImpact": 9
+    }
+  ],
+  "predictedFactorShocks": {
+    "equityShockPct": -0.315,
+    "energyShockPct": -0.520,
+    "ratesBps": -110,
+    "creditSpreadBps": 380,
+    "defaultMigration": 2.8
+  }
+}

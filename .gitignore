@@ -1,0 +1,92 @@
+# ============================================
+# RiskPulse - Git Ignore Configuration
+# Protects all secret keys, databases, & cache
+# ============================================
+
+# Security & Secret Keys (NEVER COMMIT)
+.env
+.env.*
+*.env
+!.env.example
+*.key
+*.pem
+credentials.json
+token.json
+secrets.json
+
+# SQLite Database & Storage (Local persistent data)
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
+data/*.sqlite
+riskpulse.db
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Logs & Diagnostics
+*.log
+logs/
+*.out
+
+# Unit Test & Coverage
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# OS Specific Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini

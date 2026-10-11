@@ -1,0 +1,77 @@
+{
+  "networkNodes": [
+    {
+      "id": "Financials",
+      "label": "Financials & Global Banks",
+      "baseExposureM": 2800,
+      "equityBufferM": 450,
+      "cet1Ratio": 12.8,
+      "systemicWeight": 0.35,
+      "description": "Tier-1 custody banks, prime brokerage clearing, syndicated credit lines"
+    },
+    {
+      "id": "RealEstate",
+      "label": "Commercial Real Estate (CRE)",
+      "baseExposureM": 1400,
+      "equityBufferM": 190,
+      "cet1Ratio": 9.4,
+      "systemicWeight": 0.20,
+      "description": "Office CMBS trusts, construction revolvers, and multi-family bridge loans"
+    },
+    {
+      "id": "Energy",
+      "label": "Energy & Commodities",
+      "baseExposureM": 1600,
+      "equityBufferM": 260,
+      "cet1Ratio": 11.2,
+      "systemicWeight": 0.15,
+      "description": "Upstream hydrocarbon facilities, commodity trade credit, power utilities"
+    },
+    {
+      "id": "Industrials",
+      "label": "Industrials & Manufacturing",
+      "baseExposureM": 1500,
+      "equityBufferM": 240,
+      "cet1Ratio": 10.5,
+      "systemicWeight": 0.15,
+      "description": "Supply-chain OEM equipment leases, export financing, working capital"
+    },
+    {
+      "id": "Technology",
+      "label": "Technology & Hyperscalers",
+      "baseExposureM": 1800,
+      "equityBufferM": 380,
+      "cet1Ratio": 15.1,
+      "systemicWeight": 0.10,
+      "description": "AI cloud compute commitments, semiconductor capex debt, venture deposits"
+    },
+    {
+      "id": "Sovereign",
+      "label": "Sovereign & Central Liquidity",
+      "baseExposureM": 900,
+      "equityBufferM": 500,
+      "cet1Ratio": 18.0,
+      "systemicWeight": 0.05,
+      "description": "G-10 government repo collateral, sovereign wealth syndicates, FX reserves"
+    }
+  ],
+  "matrix": {
+    "Financials": { "Financials": 0.0, "RealEstate": 0.45, "Energy": 0.15, "Industrials": 0.25, "Technology": 0.15, "Sovereign": 0.10 },
+    "RealEstate": { "Financials": 0.55, "RealEstate": 0.0, "Energy": 0.05, "Industrials": 0.20, "Technology": 0.10, "Sovereign": 0.0 },
+    "Energy": { "Financials": 0.35, "RealEstate": 0.05, "Energy": 0.0, "Industrials": 0.40, "Technology": 0.10, "Sovereign": 0.15 },
+    "Industrials": { "Financials": 0.30, "RealEstate": 0.15, "Energy": 0.25, "Industrials": 0.0, "Technology": 0.20, "Sovereign": 0.05 },
+    "Technology": { "Financials": 0.40, "RealEstate": 0.10, "Energy": 0.15, "Industrials": 0.25, "Technology": 0.0, "Sovereign": 0.05 },
+    "Sovereign": { "Financials": 0.60, "RealEstate": 0.05, "Energy": 0.15, "Industrials": 0.10, "Technology": 0.05, "Sovereign": 0.0 }
+  },
+  "transmissionChannels": {
+    "Financials->RealEstate": "CMBS margin calls & refinancing facility freezing",
+    "Financials->Industrials": "Working capital facility retraction and syndicated credit limits",
+    "Financials->Technology": "Fintech depository liquidity tightening and venture debt covenants",
+    "RealEstate->Financials": "CRE non-accrual loan defaults and property foreclosure losses",
+    "Energy->Industrials": "Direct feedstock fuel inflation and logistics disruption surcharges",
+    "Energy->Financials": "Commodity OTC derivatives settlement defaults and clearinghouse margin calls",
+    "Sovereign->Financials": "Held-to-maturity sovereign bond mark-to-market duration devaluations",
+    "Technology->Financials": "Corporate treasury deposit runs and concentrated unhedged balances",
+    "Industrials->Energy": "Reduced commercial industrial off-take and delayed refinery settlements"
+  }
+}

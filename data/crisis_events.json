@@ -1,0 +1,122 @@
+[
+  {
+    "event_id": "EVT-GEO-001",
+    "title": "Severe Middle East Maritime Escalation & Red Sea Blockade",
+    "source_news": "Naval conflict breaks out along vital Strait of Hormuz, halting 20% of global crude shipments. Sanctions imposed on regional oil ports.",
+    "source_social": "  crude rocket ship mode! Brent topping  right now, supply lines completely blocked #OPEC #WarRisk",
+    "primary_tickers": [
+      "XOM",
+      "CVX",
+      "MACRO"
+    ],
+    "true_event_class": "Geopolitical",
+    "target_impact": 8.8,
+    "target_sentiment": -0.78,
+    "shocks": {
+      "yield_shock_bps": 65,
+      "spread_shock_bps": 180,
+      "pd_multiplier": 1.85,
+      "equity_shock_pct": -14.5
+    }
+  },
+  {
+    "event_id": "EVT-MACRO-002",
+    "title": "Federal Reserve Delivers Surprise 100bps Emergency Rate Hike",
+    "source_news": "Federal Reserve Chairman announces emergency 100 basis point federal funds rate hike following severe core CPI inflation spike to 8.4%.",
+    "source_social": "Fed just nuked the market with 100bps rate hike! 10Y yield spiking straight through the roof! Cash is king #RateHike #Recession",
+    "primary_tickers": [
+      "JPM",
+      "BAC",
+      "GS",
+      "MACRO"
+    ],
+    "true_event_class": "Macroeconomic",
+    "target_impact": 8.2,
+    "target_sentiment": -0.84,
+    "shocks": {
+      "yield_shock_bps": 125,
+      "spread_shock_bps": 110,
+      "pd_multiplier": 1.45,
+      "equity_shock_pct": -11.0
+    }
+  },
+  {
+    "event_id": "EVT-CREDIT-003",
+    "title": "Systemic Contagion as Major Commercial Real Estate Lender Defaults",
+    "source_news": "European banking consortium discloses unhedged  commercial real estate credit default. Credit default swaps surge 240bps across money center banks.",
+    "source_social": "Emergency liquidity window opened! Contagion spreading across wholesale lenders. Bank CDS blowing out everywhere #BankingCrisis #Default",
+    "primary_tickers": [
+      "JPM",
+      "BAC",
+      "GS"
+    ],
+    "true_event_class": "Credit Event",
+    "target_impact": 9.2,
+    "target_sentiment": -0.92,
+    "shocks": {
+      "yield_shock_bps": -40,
+      "spread_shock_bps": 320,
+      "pd_multiplier": 2.6,
+      "equity_shock_pct": -22.5
+    }
+  },
+  {
+    "event_id": "EVT-CYBER-004",
+    "title": "Critical Zero-Day Cyber Attack on Interbank Clearing Gateway",
+    "source_news": "Federal cybersecurity agency confirms coordinated ransomware infiltration into major interbank SWIFT clearing hub. Settlement operations temporarily halted.",
+    "source_social": "Interbank settlements frozen worldwide! Treasury desk wire transfers bouncing back #CyberAttack #Fintech #SystemDown",
+    "primary_tickers": [
+      "MSFT",
+      "MACRO"
+    ],
+    "true_event_class": "Cyber / Operational Risk",
+    "target_impact": 8.4,
+    "target_sentiment": -0.76,
+    "shocks": {
+      "yield_shock_bps": 15,
+      "spread_shock_bps": 140,
+      "pd_multiplier": 1.6,
+      "equity_shock_pct": -12.0
+    }
+  },
+  {
+    "event_id": "EVT-TECH-005",
+    "title": "Breakthrough Quantum Neural Architecture Unveiled by Tech Consortium",
+    "source_news": "NVIDIA and Microsoft announce unified enterprise quantum-accelerated AI infrastructure delivering 100x efficiency gains and record datacenter bookings.",
+    "source_social": "  unbelievable numbers! Capex expanding to , backlog filled through 2028. Tech supercycle is real! #AI #BullMarket",
+    "primary_tickers": [
+      "NVDA",
+      "MSFT",
+      "GOOGL",
+      "AAPL"
+    ],
+    "true_event_class": "Product Launch / Innovation",
+    "target_impact": 6.5,
+    "target_sentiment": 0.88,
+    "shocks": {
+      "yield_shock_bps": 10,
+      "spread_shock_bps": -25,
+      "pd_multiplier": 0.9,
+      "equity_shock_pct": 8.5
+    }
+  },
+  {
+    "event_id": "EVT-MA-006",
+    "title": "Antitrust Regulators Block Landmark  Megacap Acquisition",
+    "source_news": "Department of Justice files injunction blocking proposed merger between top semiconductor and cloud networking leaders over national security dominance.",
+    "source_social": "Deal is dead! Breakup fee triggered, arbitrage spread collapses 35% in after-hours trading #Antitrust #DOJ #MergerFail",
+    "primary_tickers": [
+      "GOOGL",
+      "AMZN"
+    ],
+    "true_event_class": "Merger/Acquisition",
+    "target_impact": 5.8,
+    "target_sentiment": -0.45,
+    "shocks": {
+      "yield_shock_bps": 0,
+      "spread_shock_bps": 40,
+      "pd_multiplier": 1.15,
+      "equity_shock_pct": -4.5
+    }
+  }
+]

@@ -1,0 +1,67 @@
+{
+  "crisisId": "russia-ukraine-2022",
+  "name": "Russia-Ukraine Conflict & Global Commodity Shock",
+  "window": "24 Feb – 8 Mar 2022",
+  "description": "Full-scale military conflict triggering sweeping Western sanctions, exclusion of major Russian banks from SWIFT, crude oil spiking past $130/barrel, and severe European natural gas rationing.",
+  "benchmarks": {
+    "sp500SPY": -0.068,
+    "energyXLE": 0.174,
+    "emergingEEM": -0.112,
+    "highYieldHYG": -0.038,
+    "brentCrude": 0.285
+  },
+  "headlines": [
+    {
+      "id": "ru-h1",
+      "date": "2022-02-24",
+      "text": "Russian military forces launch major multi-front offensive into Ukraine; Brent crude oil surges above $105 per barrel for the first time since 2014.",
+      "source": "Reuters World",
+      "expectedEvent": "Geopolitical",
+      "expectedSentiment": -0.92,
+      "expectedImpact": 10
+    },
+    {
+      "id": "ru-h2",
+      "date": "2022-02-26",
+      "text": "US, European Commission, and UK agree to sever selected Russian financial institutions from the SWIFT international banking messaging network.",
+      "source": "Financial Times",
+      "expectedEvent": "Regulatory / Legal",
+      "expectedSentiment": -0.88,
+      "expectedImpact": 9
+    },
+    {
+      "id": "ru-h3",
+      "date": "2022-02-28",
+      "text": "Western allies freeze foreign exchange reserves of the Central Bank of Russia; Russian Ruble crashes 30% to historic low amidst domestic bank runs.",
+      "source": "Wall Street Journal",
+      "expectedEvent": "Geopolitical",
+      "expectedSentiment": -0.95,
+      "expectedImpact": 9
+    },
+    {
+      "id": "ru-h4",
+      "date": "2022-03-03",
+      "text": "Wheat, fertilizer, and agricultural grain futures touch all-time record highs amidst Black Sea maritime port blockades and export disruptions.",
+      "source": "Bloomberg Commodities",
+      "expectedEvent": "Macroeconomic",
+      "expectedSentiment": -0.78,
+      "expectedImpact": 8
+    },
+    {
+      "id": "ru-h5",
+      "date": "2022-03-08",
+      "text": "United States bans all imports of Russian oil, liquefied natural gas, and coal; Brent crude spikes to $139 per barrel as European gas prices hit record peaks.",
+      "source": "S&P Global Commodity Insights",
+      "expectedEvent": "Geopolitical",
+      "expectedSentiment": -0.84,
+      "expectedImpact": 9
+    }
+  ],
+  "predictedFactorShocks": {
+    "equityShockPct": -0.075,
+    "energyShockPct": 0.190,
+    "ratesBps": 25,
+    "creditSpreadBps": 115,
+    "defaultMigration": 1.4
+  }
+}

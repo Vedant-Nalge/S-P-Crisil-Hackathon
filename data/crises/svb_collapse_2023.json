@@ -1,0 +1,76 @@
+{
+  "crisisId": "svb-2023",
+  "name": "Silicon Valley Bank Collapse & Regional Banking Panic",
+  "window": "8 Mar – 17 Mar 2023",
+  "description": "Unprecedented deposit run and duration loss on held-to-maturity Treasury portfolios triggering the collapse of SVB and Signature Bank, causing systemic regional bank contagion.",
+  "benchmarks": {
+    "regionalBanksKRE": -0.284,
+    "financialsXLF": -0.118,
+    "treasuries10Y_TLT": 0.046,
+    "highYieldHYG": -0.028,
+    "sp500SPY": -0.019
+  },
+  "headlines": [
+    {
+      "id": "svb-h1",
+      "date": "2023-03-08",
+      "text": "SVB Financial Group launches urgent $2.25B capital raise after taking severe $1.8B after-tax loss on Treasury and MBS bond sales.",
+      "source": "Reuters Financial",
+      "expectedEvent": "Credit Event",
+      "expectedSentiment": -0.85,
+      "expectedImpact": 8
+    },
+    {
+      "id": "svb-h2",
+      "date": "2023-03-09",
+      "text": "Prominent venture capital firms instruct portfolio startups to aggressively withdraw all deposits from Silicon Valley Bank as shares crater 60%.",
+      "source": "Bloomberg Tech",
+      "expectedEvent": "Credit Event",
+      "expectedSentiment": -0.92,
+      "expectedImpact": 9
+    },
+    {
+      "id": "svb-h3",
+      "date": "2023-03-10",
+      "text": "California regulators close Silicon Valley Bank and appoint FDIC receiver in the second largest bank failure in United States history.",
+      "source": "Wall Street Journal",
+      "expectedEvent": "Regulatory / Legal",
+      "expectedSentiment": -0.96,
+      "expectedImpact": 10
+    },
+    {
+      "id": "svb-h4",
+      "date": "2023-03-12",
+      "text": "Treasury, Federal Reserve, and FDIC announce emergency systemic risk exception guaranteeing all uninsured deposits and creating the Bank Term Funding Program (BTFP).",
+      "source": "Federal Reserve Release",
+      "expectedEvent": "Macroeconomic",
+      "expectedSentiment": 0.45,
+      "expectedImpact": 8
+    },
+    {
+      "id": "svb-h5",
+      "date": "2023-03-13",
+      "text": "Regional bank shares plunge across the board; trading halted in First Republic, Western Alliance, and PacWest amidst intense deposit flight fears.",
+      "source": "Financial Times",
+      "expectedEvent": "Credit Event",
+      "expectedSentiment": -0.88,
+      "expectedImpact": 9
+    },
+    {
+      "id": "svb-h6",
+      "date": "2023-03-15",
+      "text": "Credit Suisse shares collapse 24% after Saudi National Bank rules out further financial assistance, sparking fears of European wholesale banking contagion.",
+      "source": "Reuters Banking",
+      "expectedEvent": "Credit Event",
+      "expectedSentiment": -0.91,
+      "expectedImpact": 9
+    }
+  ],
+  "predictedFactorShocks": {
+    "equityShockPct": -0.105,
+    "regionalBankShockPct": -0.265,
+    "ratesBps": -45,
+    "creditSpreadBps": 190,
+    "defaultMigration": 2.2
+  }
+}
