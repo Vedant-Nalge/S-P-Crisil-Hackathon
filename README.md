@@ -10,7 +10,7 @@
 
 **Demo Video Link (YouTube):** [https://youtu.be/Z9YVVp3IwHs](https://youtu.be/Z9YVVp3IwHs)
 
-**Presentation Slide Deck & Video Folder (Google Drive):** [https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4](https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4)
+**Presentation Slide Deck (Google Drive):** [https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4](https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4)
 
 ---
 
