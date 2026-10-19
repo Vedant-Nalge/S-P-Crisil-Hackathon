@@ -1437,20 +1437,52 @@
         function updateSentimentGauge(score) {
             const gaugeText = document.getElementById('gaugeValueText');
             const gaugeLabel = document.getElementById('gaugeLabelText');
-            gaugeText.innerText = (score > 0 ? '+' : '') + score.toFixed(2);
+            const numScore = Number(score) || 0;
+            gaugeText.innerText = (numScore > 0 ? '+' : '') + numScore.toFixed(2);
 
-            if (score > 0.15) {
+            if (numScore > 0.15) {
                 gaugeText.className = "text-base font-bold font-mono text-buy";
                 gaugeLabel.innerText = "BULLISH";
                 gaugeLabel.className = "text-[9px] font-mono text-buy font-semibold uppercase";
-            } else if (score < -0.15) {
+                if (sentimentGaugeInstance) {
+                    const bullWeight = Math.round(40 + Math.min(1, numScore) * 45);
+                    const bearWeight = Math.max(10, 85 - bullWeight);
+                    sentimentGaugeInstance.data.datasets[0].data = [bearWeight, 15, bullWeight];
+                    sentimentGaugeInstance.data.datasets[0].backgroundColor = [
+                        'rgba(255, 92, 92, 0.22)',
+                        'rgba(154, 161, 178, 0.25)',
+                        'rgba(53, 196, 113, 0.95)'
+                    ];
+                    sentimentGaugeInstance.update();
+                }
+            } else if (numScore < -0.15) {
                 gaugeText.className = "text-base font-bold font-mono text-sell";
                 gaugeLabel.innerText = "BEARISH";
                 gaugeLabel.className = "text-[9px] font-mono text-sell font-semibold uppercase";
+                if (sentimentGaugeInstance) {
+                    const bearWeight = Math.round(40 + Math.min(1, Math.abs(numScore)) * 45);
+                    const bullWeight = Math.max(10, 85 - bearWeight);
+                    sentimentGaugeInstance.data.datasets[0].data = [bearWeight, 15, bullWeight];
+                    sentimentGaugeInstance.data.datasets[0].backgroundColor = [
+                        'rgba(255, 92, 92, 0.95)',
+                        'rgba(154, 161, 178, 0.25)',
+                        'rgba(53, 196, 113, 0.22)'
+                    ];
+                    sentimentGaugeInstance.update();
+                }
             } else {
                 gaugeText.className = "text-base font-bold font-mono text-ink-dim";
                 gaugeLabel.innerText = "NEUTRAL";
                 gaugeLabel.className = "text-[9px] font-mono text-ink-faint font-semibold uppercase";
+                if (sentimentGaugeInstance) {
+                    sentimentGaugeInstance.data.datasets[0].data = [40, 20, 40];
+                    sentimentGaugeInstance.data.datasets[0].backgroundColor = [
+                        'rgba(255, 92, 92, 0.65)',
+                        'rgba(154, 161, 178, 0.55)',
+                        'rgba(53, 196, 113, 0.65)'
+                    ];
+                    sentimentGaugeInstance.update();
+                }
             }
         }
 
@@ -1838,11 +1870,11 @@
                 }
 
                 // Auto-apply rebalancing to all identified tickers
-                if (tickers.length > 0 && tickers[0] !== 'MACRO') {
-                    const sentimentDelta = {};
-                    tickers.forEach(t => sentimentDelta[t] = signal.sentiment_score);
-                    await applyRebalance(sentimentDelta);
-                }
+                const activeTickers = tickers.filter(t => t && t !== 'MACRO');
+                const targetTickers = activeTickers.length > 0 ? activeTickers : ['NVDA', 'AAPL', 'MSFT', 'JPM', 'TSLA'];
+                const sentimentDelta = {};
+                targetTickers.forEach(t => sentimentDelta[t] = signal.sentiment_score);
+                await applyRebalance(sentimentDelta);
 
                 // Always cascade signal shock into Module B Wholesale Stress Test
                 await executeInteractiveStressTest({
