@@ -339,7 +339,7 @@
                                 <i data-lucide="globe" class="w-3.5 h-3.5"></i> Multi-Source Financial Wire
                             </button>
                             <button onclick="switchFeedTab('social')" id="tabSocialBtn" class="font-display text-xs font-semibold text-ink-dim pb-1 hover:text-ink flex items-center gap-1.5">
-                                <i data-lucide="message-square" class="w-3.5 h-3.5"></i> StockTwits REST
+                                <i data-lucide="message-square" class="w-3.5 h-3.5"></i> Social Pulse (X, Threads, Reddit, StockTwits)
                             </button>
 
                             <!-- Publisher Source Quick Dropdown Filter -->
@@ -396,6 +396,16 @@
                         <button onclick="setSourceFilterBtn('MarketWatch')" class="pub-filter-pill px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold transition border border-border bg-surface-2 text-ink-dim hover:text-ink" data-source="MarketWatch">MarketWatch</button>
                         <button onclick="setSourceFilterBtn('Yahoo Finance')" class="pub-filter-pill px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold transition border border-border bg-surface-2 text-ink-dim hover:text-ink" data-source="Yahoo Finance">Yahoo</button>
                         <button onclick="setSourceFilterBtn('CoinDesk')" class="pub-filter-pill px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold transition border border-border bg-surface-2 text-ink-dim hover:text-ink" data-source="CoinDesk">CoinDesk</button>
+                    </div>
+
+                    <!-- Quick Social Platform Filter Badges -->
+                    <div id="quickSocialBadges" class="hidden flex-wrap items-center gap-1.5 pb-1">
+                        <span class="font-mono text-[10px] text-ink-faint mr-1">Platforms:</span>
+                        <button onclick="setSocialFilterBtn('ALL')" class="soc-filter-pill px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold transition border border-accent/40 bg-accent/20 text-accent" data-platform="ALL">All Platforms</button>
+                        <button onclick="setSocialFilterBtn('X')" class="soc-filter-pill px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold transition border border-border bg-surface-2 text-ink-dim hover:text-ink" data-platform="X">𝕏 (Twitter)</button>
+                        <button onclick="setSocialFilterBtn('Threads')" class="soc-filter-pill px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold transition border border-border bg-surface-2 text-ink-dim hover:text-ink" data-platform="Threads">Threads</button>
+                        <button onclick="setSocialFilterBtn('Reddit')" class="soc-filter-pill px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold transition border border-border bg-surface-2 text-ink-dim hover:text-ink" data-platform="Reddit">Reddit (r/WSB & r/investing)</button>
+                        <button onclick="setSocialFilterBtn('StockTwits')" class="soc-filter-pill px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold transition border border-border bg-surface-2 text-ink-dim hover:text-ink" data-platform="StockTwits">StockTwits</button>
                     </div>
 
                     <div id="liveFeedContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[340px] overflow-y-auto pr-1">
@@ -1559,12 +1569,22 @@
             activeFeedTab = tab;
             const newsBtn = document.getElementById('tabNewsBtn');
             const socialBtn = document.getElementById('tabSocialBtn');
+            const pubBadges = document.getElementById('quickPublisherBadges');
+            const socBadges = document.getElementById('quickSocialBadges');
+            const srcDropdown = document.getElementById('sourceFilterWrapper');
+
             if (tab === 'news') {
-                newsBtn.className = "font-display text-xs font-bold text-accent pb-1 border-b-2 border-accent";
-                socialBtn.className = "font-display text-xs font-semibold text-ink-dim pb-1 hover:text-ink";
+                newsBtn.className = "font-display text-xs font-bold text-accent pb-1 border-b-2 border-accent flex items-center gap-1.5";
+                socialBtn.className = "font-display text-xs font-semibold text-ink-dim pb-1 hover:text-ink flex items-center gap-1.5";
+                if (pubBadges) { pubBadges.classList.remove('hidden'); pubBadges.classList.add('flex'); }
+                if (socBadges) { socBadges.classList.add('hidden'); socBadges.classList.remove('flex'); }
+                if (srcDropdown) srcDropdown.classList.remove('hidden');
             } else {
-                socialBtn.className = "font-display text-xs font-bold text-accent pb-1 border-b-2 border-accent";
-                newsBtn.className = "font-display text-xs font-semibold text-ink-dim pb-1 hover:text-ink";
+                socialBtn.className = "font-display text-xs font-bold text-accent pb-1 border-b-2 border-accent flex items-center gap-1.5";
+                newsBtn.className = "font-display text-xs font-semibold text-ink-dim pb-1 hover:text-ink flex items-center gap-1.5";
+                if (pubBadges) { pubBadges.classList.add('hidden'); pubBadges.classList.remove('flex'); }
+                if (socBadges) { socBadges.classList.remove('hidden'); socBadges.classList.add('flex'); }
+                if (srcDropdown) srcDropdown.classList.add('hidden');
             }
             loadLiveFeeds();
         }
@@ -1673,6 +1693,7 @@
         }
 
         let selectedNewsSource = "ALL";
+        let selectedSocialPlatform = "ALL";
 
         function filterNewsBySource(source) {
             selectedNewsSource = source;
@@ -1695,6 +1716,19 @@
             filterNewsBySource(source);
         }
 
+        function setSocialFilterBtn(platform) {
+            selectedSocialPlatform = platform;
+            document.querySelectorAll('.soc-filter-pill').forEach(btn => {
+                const p = btn.getAttribute('data-platform');
+                if (p === platform) {
+                    btn.className = "soc-filter-pill px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold transition border border-accent/40 bg-accent/20 text-accent";
+                } else {
+                    btn.className = "soc-filter-pill px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold transition border border-border bg-surface-2 text-ink-dim hover:text-ink";
+                }
+            });
+            loadLiveFeeds(false);
+        }
+
         async function loadLiveFeeds(isAutoPoll = false) {
             const container = document.getElementById('liveFeedContainer');
             if (!isAutoPoll && container) {
@@ -1703,7 +1737,7 @@
             try {
                 const endpoint = activeFeedTab === 'news' 
                     ? `/api/risk/live-news?limit=16&source=${encodeURIComponent(selectedNewsSource)}` 
-                    : '/api/risk/live-social';
+                    : `/api/risk/live-social?limit=16&platform=${encodeURIComponent(selectedSocialPlatform)}`;
                 const res = await fetch(endpoint);
                 const items = await res.json();
                 if (!container) return;

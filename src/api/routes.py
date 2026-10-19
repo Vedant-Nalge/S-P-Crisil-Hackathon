@@ -139,8 +139,8 @@ def get_live_news(limit: int = 15, source: str = "ALL"):
     return fetch_live_financial_news(limit=limit, source_filter=source)
 
 @api_router.get("/risk/live-social")
-def get_live_social(ticker: str = "NVDA", limit: int = 6):
-    return fetch_live_social_stream(ticker=ticker, limit=limit)
+def get_live_social(ticker: str = "ALL", limit: int = 16, platform: str = "ALL"):
+    return fetch_live_social_stream(ticker=ticker, limit=limit, platform=platform)
 
 @api_router.get("/risk/replay-scenarios")
 def get_scenarios():
