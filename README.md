@@ -8,9 +8,9 @@
 
 **GitHub Repository:** [https://github.com/Vedant-Nalge/S-P-Crisil-Hackathon](https://github.com/Vedant-Nalge/S-P-Crisil-Hackathon) 
 
-**Demo Video Link (Google Drive):** [https://youtu.be/Z9YVVp3IwHs]
+**Demo Video Link (YouTube):** [https://youtu.be/Z9YVVp3IwHs](https://youtu.be/Z9YVVp3IwHs)
 
-**Presentation Slide Deck Link (Google Drive):** [https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4](https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4)
+**Presentation Slide Deck & Video Folder (Google Drive):** [https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4](https://drive.google.com/drive/folders/1ix_Rn772J3XwdnMBhXZG1yztpsJlRfp4)
 
 ---
 
