@@ -318,16 +318,13 @@
 
             <!-- Ingestion Hub Card -->
             <div class="istc-card p-6 space-y-6">
-                <!-- 3-Option Segmented Mode Switcher -->
+                <!-- 2-Option Segmented Mode Switcher -->
                 <div class="flex flex-col sm:flex-row items-center gap-2 p-1.5 bg-surface-2 rounded-2xl border border-border">
                     <button onclick="setIngestionMode('live')" id="modeBtn-live" class="w-full sm:flex-1 py-2.5 px-4 rounded-xl font-display text-xs font-semibold transition-all flex items-center justify-center gap-2 bg-accent text-white shadow-[0_0_15px_rgba(157,132,255,0.4)]">
-                        <i data-lucide="radio" class="w-4 h-4 text-buy"></i> 1. Live Market News
+                        <i data-lucide="radio" class="w-4 h-4 text-buy"></i> 1. Live Market News & Social
                     </button>
                     <button onclick="setIngestionMode('type')" id="modeBtn-type" class="w-full sm:flex-1 py-2.5 px-4 rounded-xl font-display text-xs font-semibold transition-all flex items-center justify-center gap-2 text-ink-dim hover:text-ink">
                         <i data-lucide="edit-3" class="w-4 h-4 text-accent"></i> 2. Type Custom Narrative
-                    </button>
-                    <button onclick="setIngestionMode('template')" id="modeBtn-template" class="w-full sm:flex-1 py-2.5 px-4 rounded-xl font-display text-xs font-semibold transition-all flex items-center justify-center gap-2 text-ink-dim hover:text-ink">
-                        <i data-lucide="layout-grid" class="w-4 h-4 text-gold"></i> 3. Choose Template
                     </button>
                 </div>
 
@@ -447,100 +444,6 @@
                             </div>
                             <button onclick="analyzeCustomText()" id="analyzeBtn" class="istc-btn-primary px-6 py-2.5 text-xs flex items-center gap-2">
                                 <i data-lucide="play" class="w-3.5 h-3.5"></i> Run NLP Engine
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- VIEW 3: CHOOSE TEMPLATE (GALLERY OF CRISIS SCENARIOS) -->
-                <div id="modeView-template" class="hidden space-y-4">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-mono text-[11px] uppercase tracking-wider text-ink-dim">Select a Pre-Packaged Institutional Scenario</span>
-                        <span class="text-[10px] font-mono text-gold font-semibold">1-Click Execution</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                        <!-- Template 1 -->
-                        <div class="p-3.5 rounded-xl bg-surface-2 border border-border hover:border-accent/50 transition-all flex flex-col justify-between space-y-2">
-                            <div>
-                                <div class="flex justify-between items-center text-[10px] font-mono">
-                                    <span class="text-sell font-bold">GEOPOLITICAL</span>
-                                    <span class="text-accent font-bold">Impact: 8.8/10</span>
-                                </div>
-                                <h5 class="text-xs font-bold text-ink mt-1">Red Sea Blockade & Oil Spike</h5>
-                                <p class="text-[11px] text-ink-dim line-clamp-2 mt-0.5">Maritime conflict halts 20% of crude shipments. Supply chains frozen.</p>
-                            </div>
-                            <button onclick="executeTemplate('EVT-GEO-001')" class="w-full py-1.5 rounded-lg bg-accent/15 hover:bg-accent/25 text-accent font-display text-xs font-semibold border border-accent/30 transition flex items-center justify-center gap-1.5">
-                                <i data-lucide="zap" class="w-3 h-3"></i> Load & Run
-                            </button>
-                        </div>
-                        <!-- Template 2 -->
-                        <div class="p-3.5 rounded-xl bg-surface-2 border border-border hover:border-accent/50 transition-all flex flex-col justify-between space-y-2">
-                            <div>
-                                <div class="flex justify-between items-center text-[10px] font-mono">
-                                    <span class="text-gold font-bold">MACROECONOMIC</span>
-                                    <span class="text-accent font-bold">Impact: 8.2/10</span>
-                                </div>
-                                <h5 class="text-xs font-bold text-ink mt-1">Fed Emergency 100bps Rate Hike</h5>
-                                <p class="text-[11px] text-ink-dim line-clamp-2 mt-0.5">Unexpected emergency hike following severe core CPI inflation spike to 8.4%.</p>
-                            </div>
-                            <button onclick="executeTemplate('EVT-MACRO-002')" class="w-full py-1.5 rounded-lg bg-accent/15 hover:bg-accent/25 text-accent font-display text-xs font-semibold border border-accent/30 transition flex items-center justify-center gap-1.5">
-                                <i data-lucide="zap" class="w-3 h-3"></i> Load & Run
-                            </button>
-                        </div>
-                        <!-- Template 3 -->
-                        <div class="p-3.5 rounded-xl bg-surface-2 border border-border hover:border-accent/50 transition-all flex flex-col justify-between space-y-2">
-                            <div>
-                                <div class="flex justify-between items-center text-[10px] font-mono">
-                                    <span class="text-sell font-bold">CREDIT EVENT</span>
-                                    <span class="text-sell font-bold">Impact: 9.2/10</span>
-                                </div>
-                                <h5 class="text-xs font-bold text-ink mt-1">CRE Default & Banking Contagion</h5>
-                                <p class="text-[11px] text-ink-dim line-clamp-2 mt-0.5">$14B unhedged default. Bank CDS blow out 240bps across money center banks.</p>
-                            </div>
-                            <button onclick="executeTemplate('EVT-CREDIT-003')" class="w-full py-1.5 rounded-lg bg-sell/15 hover:bg-sell/25 text-sell font-display text-xs font-semibold border border-sell/30 transition flex items-center justify-center gap-1.5">
-                                <i data-lucide="zap" class="w-3 h-3"></i> Load & Run
-                            </button>
-                        </div>
-                        <!-- Template 4 -->
-                        <div class="p-3.5 rounded-xl bg-surface-2 border border-border hover:border-accent/50 transition-all flex flex-col justify-between space-y-2">
-                            <div>
-                                <div class="flex justify-between items-center text-[10px] font-mono">
-                                    <span class="text-sell font-bold">CYBER RISK</span>
-                                    <span class="text-accent font-bold">Impact: 8.4/10</span>
-                                </div>
-                                <h5 class="text-xs font-bold text-ink mt-1">Interbank Clearing Gateway Attack</h5>
-                                <p class="text-[11px] text-ink-dim line-clamp-2 mt-0.5">Coordinated ransomware halts SWIFT settlement operations temporarily.</p>
-                            </div>
-                            <button onclick="executeTemplate('EVT-CYBER-004')" class="w-full py-1.5 rounded-lg bg-accent/15 hover:bg-accent/25 text-accent font-display text-xs font-semibold border border-accent/30 transition flex items-center justify-center gap-1.5">
-                                <i data-lucide="zap" class="w-3 h-3"></i> Load & Run
-                            </button>
-                        </div>
-                        <!-- Template 5 -->
-                        <div class="p-3.5 rounded-xl bg-surface-2 border border-border hover:border-accent/50 transition-all flex flex-col justify-between space-y-2">
-                            <div>
-                                <div class="flex justify-between items-center text-[10px] font-mono">
-                                    <span class="text-buy font-bold">INNOVATION</span>
-                                    <span class="text-buy font-bold">Impact: 6.5/10</span>
-                                </div>
-                                <h5 class="text-xs font-bold text-ink mt-1">Breakthrough Quantum AI Compute</h5>
-                                <p class="text-[11px] text-ink-dim line-clamp-2 mt-0.5">Enterprise quantum AI infrastructure yields 100x efficiency gains and record orders.</p>
-                            </div>
-                            <button onclick="executeTemplate('EVT-TECH-005')" class="w-full py-1.5 rounded-lg bg-buy/15 hover:bg-buy/25 text-buy font-display text-xs font-semibold border border-buy/30 transition flex items-center justify-center gap-1.5">
-                                <i data-lucide="zap" class="w-3 h-3"></i> Load & Run
-                            </button>
-                        </div>
-                        <!-- Template 6 -->
-                        <div class="p-3.5 rounded-xl bg-surface-2 border border-border hover:border-accent/50 transition-all flex flex-col justify-between space-y-2">
-                            <div>
-                                <div class="flex justify-between items-center text-[10px] font-mono">
-                                    <span class="text-diamond font-bold">M&A REGULATION</span>
-                                    <span class="text-ink-dim font-bold">Impact: 5.8/10</span>
-                                </div>
-                                <h5 class="text-xs font-bold text-ink mt-1">Antitrust Blocks $65B Acquisition</h5>
-                                <p class="text-[11px] text-ink-dim line-clamp-2 mt-0.5">DOJ injunction blocks proposed megacap tech merger over market power.</p>
-                            </div>
-                            <button onclick="executeTemplate('EVT-MA-006')" class="w-full py-1.5 rounded-lg bg-accent/15 hover:bg-accent/25 text-accent font-display text-xs font-semibold border border-accent/30 transition flex items-center justify-center gap-1.5">
-                                <i data-lucide="zap" class="w-3 h-3"></i> Load & Run
                             </button>
                         </div>
                     </div>
@@ -1517,29 +1420,27 @@
             }
         }
 
-        // --- 3-OPTION INGESTION HUB CONTROLS ---
+        // --- 2-OPTION INGESTION HUB CONTROLS ---
         let currentIngestionMode = 'live';
 
         function setIngestionMode(mode) {
             currentIngestionMode = mode;
             const views = {
                 'live': document.getElementById('modeView-live'),
-                'type': document.getElementById('modeView-type'),
-                'template': document.getElementById('modeView-template')
+                'type': document.getElementById('modeView-type')
             };
             const buttons = {
                 'live': document.getElementById('modeBtn-live'),
-                'type': document.getElementById('modeBtn-type'),
-                'template': document.getElementById('modeBtn-template')
+                'type': document.getElementById('modeBtn-type')
             };
             const labels = {
-                'live': 'Mode: 1. Live Market News',
-                'type': 'Mode: 2. Type Custom Narrative',
-                'template': 'Mode: 3. Choose Template'
+                'live': 'Mode: 1. Live Market News & Social',
+                'type': 'Mode: 2. Type Custom Narrative'
             };
 
             // Toggle views
             Object.keys(views).forEach(k => {
+                if (!views[k] || !buttons[k]) return;
                 if (k === mode) {
                     views[k].classList.remove('hidden');
                     buttons[k].className = "w-full sm:flex-1 py-2.5 px-4 rounded-xl font-display text-xs font-semibold transition-all flex items-center justify-center gap-2 bg-accent text-white shadow-[0_0_15px_rgba(157,132,255,0.4)]";
@@ -1549,19 +1450,18 @@
                 }
             });
 
-            document.getElementById('activeModeBadge').innerText = labels[mode];
+            if (labels[mode]) {
+                document.getElementById('activeModeBadge').innerText = labels[mode];
+            }
             lucide.createIcons();
         }
 
         function insertQuickChip(headline, eventClass, tickers) {
-            document.getElementById('customHeadline').value = headline;
-            document.getElementById('customTickers').value = tickers;
+            const hlEl = document.getElementById('customHeadline');
+            if (hlEl) hlEl.value = headline;
+            const tkEl = document.getElementById('customTickers');
+            if (tkEl) tkEl.value = tickers;
             analyzeCustomText();
-        }
-
-        async function executeTemplate(eventId) {
-            document.getElementById('outputSourceTag').innerText = `Source: Template (${eventId})`;
-            await triggerScenarioReplayWithId(eventId);
         }
 
         // 3. Tab switching for live feeds
